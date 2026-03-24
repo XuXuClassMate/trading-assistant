@@ -23,7 +23,7 @@ COPY trading_assistant/ ./trading_assistant/
 RUN pip install --no-cache-dir .
 
 # Set entrypoint
-ENTRYPOINT ["trading-assistant"]
+ENTRYPOINT ["openclaw-trading-assistant"]
 
 # Default command
 CMD ["--help"]

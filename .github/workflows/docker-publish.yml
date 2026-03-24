@@ -55,11 +55,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/${{ github.repository }}
+            ghcr.io/${{ github.repository_owner }}/trading-assistant
           tags: |
             type=raw,value=${{ steps.version.outputs.version }}
             type=raw,value=latest
-            type=semver,pattern={{major}}.{{minor}}
       
       - name: Build and push Docker image / 构建并推送 Docker 镜像
         uses: docker/build-push-action@v5
