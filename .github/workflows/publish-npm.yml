@@ -73,7 +73,7 @@ jobs:
           echo "Files ready in dist/"
       
       - name: Publish to GitHub Packages (npm) / 发布到 GitHub Packages
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
