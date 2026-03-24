@@ -71,3 +71,6 @@ test_*.py
 demo_*.py
 screenshots_*.txt
 *.md.bak
+READY_FOR_CLAWHUB.md
+CLAWHUB_READY.md
+UPLOAD_COMPLETE.md
