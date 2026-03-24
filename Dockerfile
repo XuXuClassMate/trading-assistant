@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy project files
 COPY pyproject.toml README.md ./
-COPY trading_assistant/ ./trading_assistant/
+COPY *.py ./
 
 # Install the package
 RUN pip install --no-cache-dir .
