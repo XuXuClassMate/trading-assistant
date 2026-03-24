@@ -1,8 +1,24 @@
-# 📄 GitHub Repository Topics / 仓库主题
+# GitHub Repository Configuration
 
-# Add these topics to your GitHub repository:
-# 将这些主题添加到你的 GitHub 仓库：
+## Repository Description
 
+**Bilingual Description**:
+```
+OpenClaw Trading Assistant - Complete trading decision support system with technical analysis, trading signals, and position management. Supports English and Chinese.
+
+OpenClaw 交易助手 - 功能完整的交易辅助决策系统，提供技术分析、买卖信号和仓位管理。支持英文和中文。
+```
+
+**Short Description** (for About section):
+```
+Trading decision support system | 交易辅助决策系统 | Technical Analysis & Signals | 技术分析与交易信号
+```
+
+---
+
+## Topics / Tags
+
+```
 trading
 finance
 technical-analysis
@@ -15,88 +31,85 @@ portfolio-management
 i18n
 multi-language
 clawhub
+```
 
 ---
 
-# 📝 GitHub Repository Description / 仓库描述
+## Website
 
-# English:
-OpenClaw Trading Assistant - Complete trading decision support system with technical analysis, trading signals, and position management. Supports English & Chinese.
-
-# 中文:
-OpenClaw 交易助手 - 功能完整的交易辅助决策系统，提供技术分析、买卖信号和仓位管理。支持英文和中文。
-
-# Bilingual (Recommended):
-OpenClaw Trading Assistant | 交易助手 📊 Technical Analysis & Trading Signals | 技术分析与交易信号 🇺🇸🇨🇳
-
----
-
-# 🔗 Website / 网站
-
+```
 https://clawhub.com
+```
 
 ---
 
-# 📚 Documentation Links / 文档链接
+## Documentation Links
 
-- README: https://github.com/XuXuClassMate/trading-assistant#readme
-- ClawHub: https://clawhub.com/trading-assistant
-- Issues: https://github.com/XuXuClassMate/trading-assistant/issues
+- **README (English)**: https://github.com/XuXuClassMate/trading-assistant/blob/main/README_en.md
+- **README (中文)**: https://github.com/XuXuClassMate/trading-assistant/blob/main/README_zh.md
+- **ClawHub**: https://clawhub.com/trading-assistant
+- **Issues**: https://github.com/XuXuClassMate/trading-assistant/issues
 
 ---
 
-# 🎯 Repository Settings / 仓库设置
-
-## Social Preview / 社交预览
+## Social Preview
 
 **Recommended Image Size**: 1280x640 pixels
-**推荐图片尺寸**: 1280x640 像素
 
 **Content**:
 - Project logo/name
 - Key features (bilingual)
 - GitHub URL
 
----
+**Suggested Text**:
+```
+OpenClaw Trading Assistant
+Technical Analysis & Trading Signals
+技术分析与交易信号
 
-# 📌 Pinned Repositories / 置顶仓库
+Support & Resistance | 支撑/阻力位
+Trading Signals | 买卖信号
+Position Management | 仓位管理
 
-# Pin this repository to show on your profile
-# 将此仓库置顶以显示在你的个人主页
-
----
-
-# 🏷️ Release Tags / 发布标签
-
-# Use semantic versioning for releases
-# 使用语义化版本进行发布
-
-Format / 格式: v1.0.0, v1.1.0, v2.0.0, etc.
+github.com/XuXuClassMate/trading-assistant
+```
 
 ---
 
-# 📊 Repository Stats / 仓库统计
+## Pinned Repositories
 
-# Track these metrics:
-# 跟踪这些指标：
-
-- ⭐ Stars
-- 🍴 Forks
-- 👀 Watchers
-- 📥 Downloads
-- 🐛 Issues closed
-- 🔀 Pull requests merged
+Pin this repository to show on your profile.
 
 ---
 
-# 🤝 Community Guidelines / 社区指南
+## Release Tags
 
-## Code of Conduct / 行为准则
+Use semantic versioning for releases:
+- Format: v1.0.0, v1.1.0, v2.0.0, etc.
+
+---
+
+## Repository Stats
+
+Track these metrics:
+- Stars
+- Forks
+- Watchers
+- Downloads
+- Issues closed
+- Pull requests merged
+
+---
+
+## Community Guidelines
+
+### Code of Conduct
 
 Be respectful and inclusive. Welcome contributors from all backgrounds.
+
 尊重他人，包容多元。欢迎来自不同背景的贡献者。
 
-## Contributing / 贡献
+### Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -110,11 +123,11 @@ Be respectful and inclusive. Welcome contributors from all backgrounds.
 
 ---
 
-# 📞 Contact / 联系方式
+## Contact
 
-- Email: trading-assistant@openclaw.community
-- Discord: https://discord.gg/clawd
-- ClawHub: https://clawhub.com
+- **Email**: trading-assistant@openclaw.community
+- **Discord**: https://discord.gg/clawd
+- **ClawHub**: https://clawhub.com
 
 ---
 
