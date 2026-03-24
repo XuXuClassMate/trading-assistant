@@ -54,9 +54,8 @@ jobs:
       - name: Upload to GitHub Packages / 上传到 GitHub Packages
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://upload.pypi.org/legacy/
-          password: ${{ secrets.PYPI_API_TOKEN }}
-        continue-on-error: true
+          repository-url: https://pypi.pkg.github.com/XuXuClassMate
+          password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
