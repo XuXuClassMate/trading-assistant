@@ -56,14 +56,25 @@ jobs:
           echo "Built files:"
           ls -lh dist/
       
-      - name: Upload to GitHub Packages / 上传到 GitHub Packages
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.GITHUB_TOKEN }}
-          repository-url: https://pypi.pkg.github.com/XuXuClassMate
-          skip-existing: true
-          verify-metadata: false
+      - name: Configure twine for GitHub Packages
+        run: |
+          mkdir -p ~/.pypirc
+          cat > ~/.pypirc << 'PYPIRC'
+          [distutils]
+          index-servers = github
+
+          [github]
+          repository = https://pypi.pkg.github.com
+          username = __token__
+          PYPIRC
+          echo "password = ${{ secrets.GITHUB_TOKEN }}" >> ~/.pypirc
+      
+      - name: Upload to GitHub Packages with twine
+        run: |
+          python -m twine upload \
+            --repository github \
+            --verbose \
+            dist/*
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
