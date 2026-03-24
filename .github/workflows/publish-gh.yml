@@ -30,7 +30,7 @@ jobs:
       - name: Install build tools / 安装构建工具
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build twine
       
       - name: Get version / 获取版本号
         id: version
@@ -56,25 +56,13 @@ jobs:
           echo "Built files:"
           ls -lh dist/
       
-      - name: Configure twine for GitHub Packages
+      - name: Upload to GitHub Packages
+        env:
+          TWINE_REPOSITORY_URL: https://pypi.pkg.github.com
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p ~/.pypirc
-          cat > ~/.pypirc << 'PYPIRC'
-          [distutils]
-          index-servers = github
-
-          [github]
-          repository = https://pypi.pkg.github.com
-          username = __token__
-          PYPIRC
-          echo "password = ${{ secrets.GITHUB_TOKEN }}" >> ~/.pypirc
-      
-      - name: Upload to GitHub Packages with twine
-        run: |
-          python -m twine upload \
-            --repository github \
-            --verbose \
-            dist/*
+          python -m twine upload dist/*
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
