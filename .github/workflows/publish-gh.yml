@@ -30,7 +30,7 @@ jobs:
       - name: Install build tools / 安装构建工具
         run: |
           python -m pip install --upgrade pip
-          pip install build twine
+          pip install build
       
       - name: Get version / 获取版本号
         id: version
@@ -57,14 +57,13 @@ jobs:
           ls -lh dist/
       
       - name: Upload to GitHub Packages / 上传到 GitHub Packages
-        run: |
-          python -m twine upload \
-            --repository-url https://pypi.pkg.github.com \
-            -u __token__ \
-            -p ${{ secrets.GITHUB_TOKEN }} \
-            dist/*
-        env:
-          TWINE_VERBOSE: "true"
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.GITHUB_TOKEN }}
+          repository-url: https://pypi.pkg.github.com/XuXuClassMate
+          skip-existing: true
+          verify-metadata: false
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
@@ -79,11 +78,8 @@ jobs:
           echo "✅ Package published successfully!"
           echo "Version: ${{ steps.version.outputs.version }}"
           echo ""
-          echo "Files created:"
-          ls -lh dist/
-          echo ""
           echo "📦 GitHub Packages URL:"
-          echo "   https://github.com/orgs/XuXuClassMate/packages"
+          echo "   https://github.com/XuXuClassMate/trading-assistant/pkgs/python/openclaw-trading-assistant"
           echo ""
           echo "📥 Install with:"
           echo "   pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
