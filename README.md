@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Version**: v1.0.0  
+**Version**: v1.1.0  
 **Author**: OpenClaw Community  
 **License**: MIT
 
@@ -29,7 +29,8 @@
 - 📊 **Support & Resistance Levels** - Automatic calculation with multiple algorithms
 - 📈 **Trading Signals** - Multi-indicator analysis (RSI, MACD, Moving Averages)
 - 💰 **Position Calculator** - Risk-based position sizing
-- ⚠️ **Risk Management** - Stop-loss, take-profit, portfolio allocation
+- 🎯 **Stop Loss & Take Profit** - Price alerts and trigger detection
+- ⚠️ **Risk Management** - Risk/Reward ratio, potential profit/loss
 - 🔔 **Notifications** - Feishu, DingTalk, Email (configurable)
 
 ### 🎯 Perfect For

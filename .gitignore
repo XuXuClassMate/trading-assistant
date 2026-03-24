@@ -81,6 +81,7 @@ watchlist.txt
 config.local.py
 *.local.json
 GITHUB_SETUP_COMPLETE.md
+PACKAGE_SETUP_COMPLETE.md
 
 # Build artifacts / 构建产物
 *.manifest
@@ -93,3 +94,6 @@ scripts/MANUAL_RELEASE_GUIDE.md
 scripts/check_releases.py
 scripts/create_release.py
 scripts/create_release_urllib.py
+
+# Test scripts
+scripts/test_*.py

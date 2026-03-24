@@ -8,6 +8,40 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.1.0] - 2026-03-24
+
+### 🎯 Stop Loss & Take Profit Alerts / 止盈止损提醒
+
+#### 🇺🇸 Added
+- Stop Loss & Take Profit alert system
+  - Create price alerts with entry, stop-loss, and take-profit levels
+  - Automatic trigger detection
+  - Risk/Reward ratio calculation
+  - Potential profit/loss estimation
+- Price level calculator
+  - Percentage-based stop-loss/take-profit calculation
+  - Customizable risk parameters
+- Alert management
+  - Active/Triggered/Cancelled status tracking
+  - JSON-based persistence
+  - Detailed logging
+
+#### 🇨🇳 新增
+- 止盈止损提醒系统
+  - 创建包含入场价、止损价、止盈价的价格提醒
+  - 自动触发检测
+  - 风险收益比计算
+  - 潜在盈亏估算
+- 价格位计算器
+  - 基于百分比的止损/止盈计算
+  - 可配置风险参数
+- 提醒管理
+  - 活跃/已触发/已取消状态跟踪
+  - JSON 持久化
+  - 详细日志记录
+
+---
+
 ## [1.0.0] - 2026-03-24
 
 ### 🎉 Initial Release / 初始版本
