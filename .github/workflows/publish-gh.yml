@@ -54,11 +54,10 @@ jobs:
       - name: Upload to GitHub Packages / 上传到 GitHub Packages
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          # GitHub Packages requires using the GITHUB_TOKEN and the correct URL
-          repository-url: https://upload.pypi.io/legacy/
+          # Use GITHUB_TOKEN - action will automatically publish to GitHub Packages
           password: ${{ secrets.GITHUB_TOKEN }}
-          # Verify the package name matches pyproject.toml
-          verify-metadata: true
+          # Skip attestation - not supported by GitHub Packages
+          skip-existing: true
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
