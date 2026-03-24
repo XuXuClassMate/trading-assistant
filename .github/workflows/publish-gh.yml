@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages / 发布到 GitHub Packages
+name: Publish to GitHub Releases / 发布到 GitHub Releases
 
 on:
   release:
@@ -12,10 +12,10 @@ on:
 
 jobs:
   build:
-    name: Build and Publish / 构建并发布
+    name: Build and Upload / 构建并上传
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     
     steps:
@@ -56,11 +56,14 @@ jobs:
           echo "Built files:"
           ls -lh dist/
       
-      - name: Upload to GitHub Release
+      - name: Create or Update Release and Upload Assets
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
           tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
