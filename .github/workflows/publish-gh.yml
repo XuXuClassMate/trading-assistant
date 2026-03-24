@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: Build package / 构建包
+    name: Build and Publish / 构建并发布
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,7 +30,7 @@ jobs:
       - name: Install build tools / 安装构建工具
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build twine
       
       - name: Get version / 获取版本号
         id: version
@@ -51,13 +51,20 @@ jobs:
       - name: Build / 构建
         run: python -m build
       
+      - name: Show built files / 显示构建的文件
+        run: |
+          echo "Built files:"
+          ls -lh dist/
+      
       - name: Upload to GitHub Packages / 上传到 GitHub Packages
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          # GitHub Packages PyPI registry URL (without org/user suffix)
-          repository-url: https://pypi.pkg.github.com
-          password: ${{ secrets.GITHUB_TOKEN }}
-          skip-existing: true
+        run: |
+          python -m twine upload \
+            --repository-url https://pypi.pkg.github.com \
+            -u __token__ \
+            -p ${{ secrets.GITHUB_TOKEN }} \
+            dist/*
+        env:
+          TWINE_VERBOSE: "true"
       
       - name: Upload artifacts to Release / 上传到 Release
         if: github.event_name == 'release'
@@ -67,17 +74,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Print success message / 打印成功消息
+      - name: Print installation instructions / 打印安装说明
         run: |
-          echo "✅ Package built successfully!"
+          echo "✅ Package published successfully!"
           echo "Version: ${{ steps.version.outputs.version }}"
           echo ""
           echo "Files created:"
           ls -lh dist/
           echo ""
-          if [ "${{ github.event_name }}" = "release" ]; then
-            echo "📦 Uploaded to GitHub Release"
-          else
-            echo "⚠️ Manual run - files not attached to release"
-            echo "   To attach to a release, create a release tag with the same version"
-          fi
+          echo "📦 GitHub Packages URL:"
+          echo "   https://github.com/orgs/XuXuClassMate/packages"
+          echo ""
+          echo "📥 Install with:"
+          echo "   pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
