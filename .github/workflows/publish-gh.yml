@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies / 安装依赖
         run: |
           python -m pip install --upgrade pip
-          pip install build twine
+          pip install build
       
       - name: Get version / 获取版本号
         id: version
@@ -54,30 +54,14 @@ jobs:
       - name: Show built files / 显示构建的文件
         run: ls -lh dist/
       
-      - name: Create .pypirc config
-        shell: bash
-        run: |
-          echo "[distutils]" > ~/.pypirc
-          echo "index-servers = github" >> ~/.pypirc
-          echo "" >> ~/.pypirc
-          echo "[github]" >> ~/.pypirc
-          echo "repository = https://pypi.pkg.github.com" >> ~/.pypirc
-          echo "username = __token__" >> ~/.pypirc
-          echo "password = ${GITHUB_TOKEN}" >> ~/.pypirc
-          cat ~/.pypirc
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Upload to GitHub Packages
-        shell: bash
-        run: |
-          echo "Uploading to GitHub Packages..."
-          python -m twine upload \
-            --repository github \
-            --verbose \
-            dist/* 2>&1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to GitHub Packages
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://pypi.pkg.github.com/XuXuClassMate
+          username: __token__
+          password: ${{ secrets.GITHUB_TOKEN }}
+          skip-existing: true
+          verbose: true
       
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
