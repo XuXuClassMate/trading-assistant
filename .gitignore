@@ -74,3 +74,9 @@ screenshots_*.txt
 READY_FOR_CLAWHUB.md
 CLAWHUB_READY.md
 UPLOAD_COMPLETE.md
+
+# User Configuration / 用户配置 (do not commit)
+.env
+watchlist.txt
+config.local.py
+*.local.json

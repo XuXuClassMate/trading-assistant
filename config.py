@@ -2,37 +2,29 @@
 """
 Trading Assistant Configuration
 交易助手系统配置管理
+
+Configuration is loaded from:
+1. Environment variables (.env file)
+2. watchlist.txt (user-defined stock list)
+3. config.json (optional, for advanced settings)
+
+配置来源:
+1. 环境变量 (.env 文件)
+2. watchlist.txt (用户自定义股票列表)
+3. config.json (可选，高级配置)
 """
 
 from pathlib import Path
 import json
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+# 从 .env 文件加载环境变量
+load_dotenv()
 
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent
-
-# 数据目录
-DATA_DIR = PROJECT_ROOT / "data"
-DATA_DIR.mkdir(exist_ok=True)
-
-# 日志目录
-LOG_DIR = PROJECT_ROOT / "logs"
-LOG_DIR.mkdir(exist_ok=True)
-
-# 测试目录
-TEST_DIR = PROJECT_ROOT / "tests"
-TEST_DIR.mkdir(exist_ok=True)
-
-# 文档目录
-DOCS_DIR = PROJECT_ROOT / "docs"
-DOCS_DIR.mkdir(exist_ok=True)
-
-# 每日报告目录
-REPORTS_DIR = PROJECT_ROOT / "daily_reports"
-REPORTS_DIR.mkdir(exist_ok=True)
-
-# 配置文件路径
-CONFIG_FILE = PROJECT_ROOT / "config.json"
 
 # 默认配置
 DEFAULT_CONFIG = {

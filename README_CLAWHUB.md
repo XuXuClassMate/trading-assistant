@@ -142,7 +142,15 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your API Keys / 编辑 .env 填入 API Keys
 
-# 4. Test installation / 测试安装
+# 4. Configure Watchlist / 配置自选股
+cp watchlist.txt.example watchlist.txt
+# Edit watchlist.txt with your stocks / 编辑 watchlist.txt 填入你的股票
+
+# 5. (Optional) Configure Notifications / (可选) 配置推送通知
+# Edit .env and fill in your notification credentials
+# 编辑 .env 填入推送通知配置 (留空则禁用)
+
+# 6. Test installation / 测试安装
 python3 support_resistance.py
 python3 trading_signals.py
 python3 position_calculator.py
@@ -208,21 +216,97 @@ portfolio = calculate_portfolio_allocation(
 
 ## ⚙️ Configuration / 配置
 
-### Environment Variables / 环境变量
+### Step 1: API Keys (Required / 必填)
 
 ```bash
-# API Keys
-TWELVE_DATA_API_KEY=your_api_key_here
-ALPHA_VANTAGE_API_KEY=your_api_key_here
+# Copy the example environment file
+cp .env.example .env
 
-# Language (en or zh_CN)
-TRADING_ASSISTANT_LANG=en
+# Edit .env and add your API Keys
+# 编辑 .env 并填入你的 API Keys
+```
 
-# Risk Profile (conservative/moderate/aggressive)
+**Get API Keys / 获取 API Key**:
+- Twelve Data: https://twelvedata.com/pricing (Free 800 calls/day)
+- Alpha Vantage: https://www.alphavantage.co/support/#api-key (Free 25 calls/day)
+
+---
+
+### Step 2: Notification Configuration (Optional / 可选)
+
+**Leave all notification fields empty to disable notifications.**
+**留空所有通知配置项以禁用推送。**
+
+#### Feishu / 飞书 (Optional)
+```bash
+FEISHU_APP_ID=
+FEISHU_APP_SECRET=
+FEISHU_CHAT_ID=
+```
+
+#### DingTalk / 钉钉 (Optional)
+```bash
+DINGTALK_APP_KEY=
+DINGTALK_APP_SECRET=
+DINGTALK_AGENT_ID=
+DINGTALK_CHAT_ID=
+```
+
+#### Email / 邮件 (Optional)
+```bash
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASSWORD=
+NOTIFICATION_EMAIL=
+```
+
+---
+
+### Step 3: Watchlist Configuration (Required / 必填)
+
+**Copy the example watchlist file:**
+```bash
+cp watchlist.txt.example watchlist.txt
+```
+
+**Edit `watchlist.txt` and add your stocks (one per line):**
+```
+# US Stocks / 美股
+NVDA
+AAPL
+MSFT
+TSLA
+
+# A-Share Stocks / A 股
+600519.SH
+000858.SZ
+
+# HK Stocks / 港股
+0700.HK
+9988.HK
+```
+
+**Supported Formats / 支持格式**:
+- US Stocks: `NVDA`, `AAPL`, `MSFT`
+- A-Share: `600519.SH`, `000858.SZ`, `300750.SZ`
+- HK Stocks: `0700.HK`, `9988.HK`, `1024.HK`
+
+---
+
+### Step 4: Trading Preferences (Optional / 可选)
+
+```bash
+# Risk Profile: conservative / moderate / aggressive
+# 风险偏好：保守型 / 稳健型 / 进取型
 RISK_PROFILE=moderate
 
 # Default Capital ($)
+# 默认总资金 (美元)
 DEFAULT_CAPITAL=100000
+
+# Language: en (English) or zh_CN (中文)
+TRADING_ASSISTANT_LANG=en
 ```
 
 ---
@@ -243,8 +327,13 @@ trading-assistant/
 │   └── I18N.md                  # i18n documentation
 ├── requirements.txt             # Dependencies
 ├── .env.example                 # Environment template
+├── watchlist.txt.example        # Watchlist template
 ├── LICENSE                      # MIT License
-└── README.md                    # This file
+└── README_CLAWHUB.md            # This file
+
+# User Configuration (not included in repo)
+.env                             # Your API Keys & settings
+watchlist.txt                    # Your stock watchlist
 ```
 
 ---
