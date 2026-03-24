@@ -1,4 +1,4 @@
-name: Publish to GitHub Releases / 发布到 GitHub Releases
+name: Publish to GitHub Packages / 发布到 GitHub Packages
 
 on:
   release:
@@ -11,11 +11,11 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Build and Upload / 构建并上传
+  publish:
+    name: Build and Publish / 构建并发布
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       packages: write
     
     steps:
@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install build tools / 安装构建工具
+      - name: Install dependencies / 安装依赖
         run: |
           python -m pip install --upgrade pip
           pip install build
@@ -41,39 +41,24 @@ jobs:
             VERSION=${{ github.event.inputs.version }}
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Building version: $VERSION"
       
-      - name: Update version / 更新版本号
+      - name: Update version in pyproject.toml / 更新版本号
         run: |
           sed -i "s/^version = .*/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
-          cat pyproject.toml | grep "^version"
       
-      - name: Build / 构建
+      - name: Build package / 构建包
         run: python -m build
       
-      - name: Show built files / 显示构建的文件
-        run: |
-          echo "Built files:"
-          ls -lh dist/
+      - name: Publish to GitHub Packages / 发布到 GitHub Packages
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.GITHUB_TOKEN }}
+          repository-url: https://pypi.pkg.github.com
       
-      - name: Create or Update Release and Upload Assets
+      - name: Also upload to Release / 同时上传到 Release
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
           tag_name: v${{ steps.version.outputs.version }}
-          name: v${{ steps.version.outputs.version }}
-          generate_release_notes: true
-          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Print installation instructions / 打印安装说明
-        run: |
-          echo "✅ Package published successfully!"
-          echo "Version: ${{ steps.version.outputs.version }}"
-          echo ""
-          echo "📦 GitHub Releases URL:"
-          echo "   https://github.com/XuXuClassMate/trading-assistant/releases"
-          echo ""
-          echo "📥 Install from Release:"
-          echo "   pip install https://github.com/XuXuClassMate/trading-assistant/releases/download/v\${{ steps.version.outputs.version }}/openclaw_trading_assistant-\${{ steps.version.outputs.version }}-py3-none-any.whl"
