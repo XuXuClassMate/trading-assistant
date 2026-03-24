@@ -69,9 +69,8 @@ jobs:
       
       - name: Copy Python wheels to npm package / 复制 Python wheel 文件
         run: |
-          mkdir -p dist
-          cp -r ../dist/* dist/
           ls -la dist/
+          echo "Files ready in dist/"
       
       - name: Publish to GitHub Packages (npm) / 发布到 GitHub Packages
         run: npm publish
