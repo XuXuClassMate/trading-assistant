@@ -1,0 +1,65 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation
+docs/
+
+# GitHub Actions
+.github/workflows/publish-npm.yml
+.github/workflows/publish-gh.yml
+.github/workflows/test-upload.yml
+.github/workflows/debug-upload.yml
+
+# Scripts (not needed in Docker)
+scripts/
+
+# Tests
+tests/
+
+# Development
+*.md
+!README.md
+!LICENSE
+!pyproject.toml
+!Dockerfile
+.dockerignore

@@ -8,6 +8,80 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.2.0] - 2026-03-24
+
+### 🐳 Docker Support & Multi-Platform Distribution
+
+#### ✨ New Features
+
+- 🐳 **Docker Container Support**
+  - Official Docker image with Python 3.11
+  - Multi-platform builds (linux/amd64, linux/arm64)
+  - Optimized image size (~150MB)
+  - Ready-to-run CLI interface
+
+- 📦 **Multi-Registry Distribution**
+  - GitHub Container Registry (ghcr.io)
+  - Docker Hub (docker.io)
+  - Automated CI/CD pipeline
+  - Version tags + latest tag
+
+- 📚 **Docker Documentation**
+  - Quick start guide
+  - Configuration examples
+  - Volume mount instructions
+  - Environment variable reference
+
+#### 🔧 Improvements
+
+- 🧹 **Code Cleanup**
+  - Removed redundant npm/PyPI GitHub workflows
+  - Simplified publish pipeline
+  - Better separation of concerns
+
+- 📝 **Updated Documentation**
+  - README with Docker installation
+  - Bilingual installation guides
+  - Clear distribution channel info
+
+---
+
+### 🐳 Docker 支持与多平台分发
+
+#### ✨ 新功能
+
+- 🐳 **Docker 容器支持**
+  - 官方 Python 3.11 Docker 镜像
+  - 多平台构建 (linux/amd64, linux/arm64)
+  - 优化的镜像大小 (~150MB)
+  - 开箱即用的 CLI 界面
+
+- 📦 **多仓库分发**
+  - GitHub Container Registry (ghcr.io)
+  - Docker Hub (docker.io)
+  - 自动化 CI/CD 流水线
+  - 版本标签 + latest 标签
+
+- 📚 **Docker 文档**
+  - 快速入门指南
+  - 配置示例
+  - 卷挂载说明
+  - 环境变量参考
+
+#### 🔧 改进
+
+- 🧹 **代码清理**
+  - 删除冗余的 npm/PyPI GitHub 工作流
+  - 简化发布流程
+  - 更好的职责分离
+
+- 📝 **文档更新**
+  - README 添加 Docker 安装说明
+  - 双语安装指南
+  - 清晰的分发渠道说明
+
+---
+
 ## [1.1.0] - 2026-03-24
 
 ### 🎯 Stop Loss & Take Profit Alerts

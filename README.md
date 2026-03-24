@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Version**: v1.1.0 (2026-03-24)  
+**Version**: v1.2.0 (2026-03-24)  
 **Author**: OpenClaw Community  
 **License**: MIT
 
@@ -132,6 +132,47 @@ python3 support_resistance.py
 python3 trading_signals.py
 python3 position_calculator.py
 ```
+
+### 🐳 Docker Installation (Recommended)
+
+**Pull from GitHub Container Registry**:
+```bash
+docker pull ghcr.io/xuxuclassmate/trading-assistant:latest
+```
+
+**Pull from Docker Hub**:
+```bash
+docker pull xuxuclassmate/trading-assistant:latest
+```
+
+**Quick Start**:
+```bash
+# Create config directory
+mkdir -p trading-assistant-config
+cd trading-assistant-config
+
+# Download example config
+curl -O https://raw.githubusercontent.com/XuXuClassMate/trading-assistant/main/.env.example
+cp .env.example .env
+
+# Edit .env with your API keys
+nano .env  # or use your favorite editor
+
+# Run the container
+docker run --rm -it \
+  -v $(pwd)/.env:/app/.env \
+  -v $(pwd)/watchlist.txt:/app/watchlist.txt \
+  ghcr.io/xuxuclassmate/trading-assistant:latest \
+  --help
+```
+
+**Available Images**:
+- `ghcr.io/xuxuclassmate/trading-assistant:1.2.0` - Specific version
+- `ghcr.io/xuxuclassmate/trading-assistant:latest` - Latest stable
+- `xuxuclassmate/trading-assistant:1.2.0` - Docker Hub (versioned)
+- `xuxuclassmate/trading-assistant:latest` - Docker Hub (latest)
+
+**Supported Platforms**: linux/amd64, linux/arm64
 
 ---
 
