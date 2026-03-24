@@ -46,6 +46,7 @@ jobs:
       - name: Update version / 更新版本号
         run: |
           sed -i "s/^version = .*/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
+          cat pyproject.toml | grep "^version"
       
       - name: Build / 构建
         run: python -m build
@@ -58,8 +59,24 @@ jobs:
         continue-on-error: true
       
       - name: Upload artifacts to Release / 上传到 Release
+        if: github.event_name == 'release'
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Print success message / 打印成功消息
+        run: |
+          echo "✅ Package built successfully!"
+          echo "Version: ${{ steps.version.outputs.version }}"
+          echo ""
+          echo "Files created:"
+          ls -lh dist/
+          echo ""
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "📦 Uploaded to GitHub Release"
+          else
+            echo "⚠️ Manual run - files not attached to release"
+            echo "   To attach to a release, create a release tag with the same version"
+          fi

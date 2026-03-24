@@ -1,4 +1,4 @@
-name: Publish to PyPI & GitHub Packages / 发布到 PyPI 和 GitHub
+name: Publish to PyPI & GitHub / 发布到 PyPI 和 GitHub
 
 on:
   release:
@@ -49,7 +49,7 @@ jobs:
       - name: Update version in pyproject.toml / 更新版本号
         run: |
           sed -i "s/^version = .*/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
-          cat pyproject.toml | grep version
+          cat pyproject.toml | grep "^version"
       
       - name: Build package / 构建包
         run: |
@@ -65,6 +65,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload to GitHub Release / 上传到 GitHub Release
+        if: github.event_name == 'release'
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
@@ -74,12 +75,17 @@ jobs:
       - name: Print installation instructions / 打印安装说明
         run: |
           echo "✅ Package published successfully!"
+          echo "Version: ${{ steps.version.outputs.version }}"
           echo ""
-          echo "Install from PyPI:"
-          echo "  pip install openclaw-trading-assistant==${{ steps.version.outputs.version }}"
+          echo "Files created:"
+          ls -lh dist/
           echo ""
-          echo "Install from GitHub Packages:"
-          echo "  pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
-          echo ""
-          echo "Or download from Releases:"
-          echo "  https://github.com/XuXuClassMate/trading-assistant/releases/tag/v${{ steps.version.outputs.version }}"
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "📦 Uploaded to GitHub Release"
+            echo ""
+            echo "Install with:"
+            echo "  pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
+          else
+            echo "⚠️ Manual run - files not attached to release"
+            echo "   Create a release tag to attach artifacts"
+          fi
