@@ -54,9 +54,9 @@ jobs:
       - name: Upload to GitHub Packages / 上传到 GitHub Packages
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          # Use GITHUB_TOKEN - action will automatically publish to GitHub Packages
+          # GitHub Packages PyPI registry URL (without org/user suffix)
+          repository-url: https://pypi.pkg.github.com
           password: ${{ secrets.GITHUB_TOKEN }}
-          # Skip attestation - not supported by GitHub Packages
           skip-existing: true
       
       - name: Upload artifacts to Release / 上传到 Release
