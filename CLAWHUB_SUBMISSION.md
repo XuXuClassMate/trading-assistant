@@ -1,19 +1,26 @@
-# 📦 ClawHub 提交清单
+# 📦 ClawHub Submission Guide / 提交指南
 
-## 项目信息
-
-| 项目 | 内容 |
-|------|------|
-| **名称** | OpenClaw Trading Assistant |
-| **版本** | v1.0.0 |
-| **作者** | OpenClaw Community |
-| **许可证** | MIT |
-| **分类** | 交易/金融/数据分析 |
-| **标签** | trading, finance, technical-analysis, stock-market |
+**Version**: v1.0.0  
+**Status**: Production Ready / 生产就绪  
+**Languages**: 🇺🇸 English, 🇨🇳 简体中文
 
 ---
 
-## ✅ 提交前检查清单
+## 📋 Project Information / 项目信息
+
+| Field | Value |
+|-------|-------|
+| **Name** | OpenClaw Trading Assistant |
+| **Version** | v1.0.0 |
+| **Author** | OpenClaw Community |
+| **License** | MIT |
+| **Category** | Finance / Trading |
+| **Tags** | trading, finance, technical-analysis, stock-market, investment, openclaw |
+| **Languages** | English, Chinese (Simplified) |
+
+---
+
+## ✅ Pre-submission Checklist / 提交前检查清单
 
 ### 代码质量
 - [x] 代码无硬编码 API Keys

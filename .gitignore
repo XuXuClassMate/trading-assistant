@@ -23,21 +23,22 @@ wheels/
 .installed.cfg
 *.egg
 
-# 配置文件
+# Configuration Files / 配置文件
 .env
 config.json
 *.local.py
 
-# 日志
+# Logs / 日志
 logs/
 *.log
 
-# 数据
+# Data / 数据
 data/
 *.json
 !package.json
+!locales/*.json
 
-# 测试
+# Testing / 测试
 .pytest_cache/
 .coverage
 htmlcov/
@@ -49,16 +50,24 @@ htmlcov/
 *.swo
 *~
 
-# 系统文件
+# System Files / 系统文件
 .DS_Store
 Thumbs.db
 
-# 临时文件
+# Temporary Files / 临时文件
 tmp/
 temp/
 *.tmp
 
-# 敏感信息
+# Sensitive Information / 敏感信息
 *.key
 *.pem
 *.secret
+
+# Development Files / 开发文件 (not for ClawHub submission)
+daily_reports/
+dev_*.py
+test_*.py
+demo_*.py
+screenshots_*.txt
+*.md.bak
