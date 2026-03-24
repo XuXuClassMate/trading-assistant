@@ -26,6 +26,15 @@ load_dotenv()
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent
 
+# 配置文件路径
+CONFIG_FILE = PROJECT_ROOT / "config.json"
+DATA_DIR = PROJECT_ROOT / "data"
+LOG_DIR = PROJECT_ROOT / "logs"
+
+# 确保目录存在
+DATA_DIR.mkdir(exist_ok=True)
+LOG_DIR.mkdir(exist_ok=True)
+
 # 默认配置
 DEFAULT_CONFIG = {
     # 数据源配置
