@@ -57,11 +57,11 @@ jobs:
       - name: Publish to GitHub Packages
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://pypi.pkg.github.com/XuXuClassMate
+          repository-url: https://pypi.pkg.github.com
           username: __token__
           password: ${{ secrets.GITHUB_TOKEN }}
-          skip-existing: true
           verbose: true
+          print-hash: true
       
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
