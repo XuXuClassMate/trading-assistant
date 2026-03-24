@@ -81,3 +81,15 @@ watchlist.txt
 config.local.py
 *.local.json
 GITHUB_SETUP_COMPLETE.md
+
+# Build artifacts / 构建产物
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Release scripts (not for package)
+scripts/MANUAL_RELEASE_GUIDE.md
+scripts/check_releases.py
+scripts/create_release.py
+scripts/create_release_urllib.py
