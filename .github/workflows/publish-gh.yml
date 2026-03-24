@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies / 安装依赖
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build twine
       
       - name: Get version / 获取版本号
         id: version
@@ -41,23 +41,33 @@ jobs:
             VERSION=${{ github.event.inputs.version }}
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
       
       - name: Update version in pyproject.toml / 更新版本号
         run: |
           sed -i "s/^version = .*/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
+          cat pyproject.toml | grep "^version"
       
       - name: Build package / 构建包
         run: python -m build
       
-      - name: Upload to GitHub Packages
+      - name: Show built files / 显示构建的文件
+        run: ls -lh dist/
+      
+      - name: Upload to GitHub Packages with twine
         run: |
-          python -m pip install twine
+          echo "Uploading to GitHub Packages..."
+          echo "Repository URL: https://pypi.pkg.github.com"
+          echo "Username: __token__"
+          
           for file in dist/*; do
+            echo "Uploading $file..."
             twine upload \
-              --repository-url https://pypi.pkg.github.com/XuXuClassMate \
+              --repository-url https://pypi.pkg.github.com \
               -u __token__ \
               -p ${{ secrets.GITHUB_TOKEN }} \
-              "$file" || true
+              --verbose \
+              "$file"
           done
       
       - name: Upload to Release
