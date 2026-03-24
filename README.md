@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Version**: v1.1.0  
+**Version**: v1.1.0 (2026-03-24)  
 **Author**: OpenClaw Community  
 **License**: MIT
 
@@ -211,20 +211,33 @@ result = calculate_position_size(
 trading-assistant/
 ├── config.py                    # Configuration
 ├── i18n.py                      # Internationalization
-├── support_resistance.py        # Support/Resistance
-├── trading_signals.py           # Trading Signals
-├── position_calculator.py       # Position Calculator
+├── support_resistance.py        # Support/Resistance (Day 1)
+├── trading_signals.py           # Trading Signals (Day 1)
+├── position_calculator.py       # Position Calculator (Day 1)
+├── stop_loss_alerts.py          # Stop Loss & Take Profit (Day 2)
 ├── locales/
 │   ├── en.json                  # English translations
 │   └── zh_CN.json               # Chinese translations
+├── data/
+│   └── alerts/                  # Alert persistence (JSON)
+├── logs/                        # Log files
 ├── docs/
 │   ├── I18N.md                  # i18n documentation
-│   └── CONFIGURATION.md         # Configuration guide
+│   ├── CONFIGURATION.md         # Configuration guide
+│   ├── PUBLISHING.md            # Package publishing guide
+│   └── V1.1.0_SUCCESS.md        # v1.1.0 release summary
+├── .github/
+│   └── workflows/
+│       ├── publish.yml          # Auto-publish workflow
+│       └── publish-gh.yml       # GitHub Packages workflow
+├── scripts/                     # Utility scripts
 ├── requirements.txt             # Dependencies
+├── pyproject.toml               # Python package config
 ├── .env.example                 # Environment template
 ├── watchlist.txt.example        # Watchlist template
 ├── LICENSE                      # MIT License
-└── README.md                    # This file (English)
+├── README.md                    # This file (English)
+└── README_zh.md                 # Chinese version
 ```
 
 ---
@@ -244,6 +257,44 @@ python3 -m pytest tests/
 ---
 
 ## 📊 Version History
+
+### v1.1.0 (2026-03-24) - Stop Loss & Take Profit Alerts
+
+**New Features**:
+- ✅ Stop Loss & Take Profit alert system
+- ✅ Automatic price trigger detection
+- ✅ Risk/Reward ratio calculation
+- ✅ Potential profit/loss estimation
+- ✅ JSON-based alert persistence
+- ✅ Detailed logging
+
+**Files Added**:
+- `stop_loss_alerts.py` - Alert management module
+- `data/alerts/` - Alert data storage
+- `logs/` - Log file directory
+
+**Usage Example**:
+```python
+from stop_loss_alerts import StopLossAlert, calculate_stop_loss_levels
+
+# Calculate levels
+levels = calculate_stop_loss_levels(
+    entry_price=175.64,
+    stop_loss_percent=5.0,
+    take_profit_percent=10.0
+)
+
+# Create alert
+alert = StopLossAlert("NVDA", 175.64)
+alert.create_alert(
+    entry_price=175.64,
+    stop_loss_price=levels['stop_loss_price'],
+    take_profit_price=levels['take_profit_price'],
+    shares=100
+)
+```
+
+---
 
 ### v1.0.0 (2026-03-24) - Initial Release
 
@@ -311,7 +362,7 @@ Thanks to these open-source projects:
 
 [📖 Documentation](#-documentation) • [🐛 Report Issue](https://github.com/XuXuClassMate/trading-assistant/issues) • [⭐ Star Project](https://github.com/XuXuClassMate/trading-assistant)
 
-*Last Updated*: 2026-03-24  
-*Version*: v1.0.0
+*Last Updated*: 2026-03-24 14:05 UTC  
+*Version*: v1.1.0
 
 </div>

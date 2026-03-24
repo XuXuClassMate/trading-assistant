@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**版本**: v1.1.0  
+**版本**: v1.1.0 (2026-03-24)  
 **作者**: OpenClaw Community  
 **许可证**: MIT
 
@@ -211,20 +211,33 @@ result = calculate_position_size(
 trading-assistant/
 ├── config.py                    # 配置管理
 ├── i18n.py                      # 国际化
-├── support_resistance.py        # 支撑/阻力位
-├── trading_signals.py           # 买卖信号
-├── position_calculator.py       # 仓位计算
+├── support_resistance.py        # 支撑/阻力位 (Day 1)
+├── trading_signals.py           # 买卖信号 (Day 1)
+├── position_calculator.py       # 仓位计算 (Day 1)
+├── stop_loss_alerts.py          # 止盈止损提醒 (Day 2)
 ├── locales/
 │   ├── en.json                  # 英文翻译
 │   └── zh_CN.json               # 中文翻译
+├── data/
+│   └── alerts/                  # 提醒数据存储 (JSON)
+├── logs/                        # 日志文件
 ├── docs/
 │   ├── I18N.md                  # 国际化文档
-│   └── CONFIGURATION.md         # 配置指南
+│   ├── CONFIGURATION.md         # 配置指南
+│   ├── PUBLISHING.md            # 包发布指南
+│   └── V1.1.0_SUCCESS.md        # v1.1.0 发布总结
+├── .github/
+│   └── workflows/
+│       ├── publish.yml          # 自动发布工作流
+│       └── publish-gh.yml       # GitHub Packages 工作流
+├── scripts/                     # 工具脚本
 ├── requirements.txt             # 依赖
+├── pyproject.toml               # Python 包配置
 ├── .env.example                 # 环境模板
 ├── watchlist.txt.example        # 自选股模板
 ├── LICENSE                      # MIT 许可证
-└── README_zh.md                 # 本文件 (中文)
+├── README_zh.md                 # 本文件 (中文)
+└── README.md                    # 英文版
 ```
 
 ---
@@ -244,6 +257,44 @@ python3 -m pytest tests/
 ---
 
 ## 📊 版本历史
+
+### v1.1.0 (2026-03-24) - 止盈止损提醒
+
+**新增功能**:
+- ✅ 止盈止损提醒系统
+- ✅ 自动价格触发检测
+- ✅ 风险收益比计算
+- ✅ 潜在盈亏估算
+- ✅ JSON 持久化存储
+- ✅ 详细日志记录
+
+**新增文件**:
+- `stop_loss_alerts.py` - 提醒管理模块
+- `data/alerts/` - 提醒数据存储
+- `logs/` - 日志文件目录
+
+**使用示例**:
+```python
+from stop_loss_alerts import StopLossAlert, calculate_stop_loss_levels
+
+# 计算止盈止损位
+levels = calculate_stop_loss_levels(
+    entry_price=175.64,
+    stop_loss_percent=5.0,
+    take_profit_percent=10.0
+)
+
+# 创建提醒
+alert = StopLossAlert("NVDA", 175.64)
+alert.create_alert(
+    entry_price=175.64,
+    stop_loss_price=levels['stop_loss_price'],
+    take_profit_price=levels['take_profit_price'],
+    shares=100
+)
+```
+
+---
 
 ### v1.0.0 (2026-03-24) - 初始版本
 
@@ -311,7 +362,7 @@ python3 -m pytest tests/
 
 [📖 文档](#-文档) • [🐛 报告问题](https://github.com/XuXuClassMate/trading-assistant/issues) • [⭐ 收藏项目](https://github.com/XuXuClassMate/trading-assistant)
 
-*最后更新*: 2026-03-24  
-*版本*: v1.0.0
+*最后更新*: 2026-03-24 14:05 UTC  
+*版本*: v1.1.0
 
 </div>
