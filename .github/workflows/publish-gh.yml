@@ -56,23 +56,11 @@ jobs:
           echo "Built files:"
           ls -lh dist/
       
-      - name: Upload to GitHub Packages
-        run: |
-          for file in dist/*; do
-            echo "Uploading $file..."
-            curl -v \
-              -X POST \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Content-Type: multipart/form-data" \
-              -F "package=@$file" \
-              "https://uploads.github.com/repos/XuXuClassMate/trading-assistant/releases/assets?name=$(basename $file)"
-          done
-      
-      - name: Upload artifacts to Release / 上传到 Release
-        if: github.event_name == 'release'
+      - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
+          tag_name: v${{ steps.version.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
