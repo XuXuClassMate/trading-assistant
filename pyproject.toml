@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "openclaw-trading-assistant"
 version = "1.3.0"
 authors = [
-    {name = "OpenClaw Community", email = "community@openclaw.ai"}
+    {name = "XuXuClassMate", email = "mail@xuxuclassmate.com"}
 ]
 description = "OpenClaw Trading Assistant - Technical Analysis & Trading Signals"
 readme = "README.md"
