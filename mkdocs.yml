@@ -1,0 +1,80 @@
+site_name: OpenClaw Trading Assistant
+site_description: Trading Decision Support System with Technical Analysis
+site_author: OpenClaw Community
+site_url: https://xuxuclassmate.github.io/trading-assistant
+
+repo_name: XuXuClassMate/trading-assistant
+repo_url: https://github.com/XuXuClassMate/trading-assistant
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Installation:
+    - Overview: guides/install-overview.md
+    - Docker: guides/docker-install.md
+    - pip: guides/pip-install.md
+    - npm: guides/npm-install.md
+    - Source: guides/source-install.md
+  - CLI Reference: CLI.md
+  - Configuration:
+    - Environment: config/environment.md
+    - API Keys: config/api-keys.md
+    - Watchlist: config/watchlist.md
+  - Guides:
+    - Getting Started: guides/getting-started.md
+    - Trading Signals: guides/trading-signals.md
+    - Position Management: guides/position-management.md
+    - Price Alerts: guides/price-alerts.md
+  - API Reference: api-reference.md
+  - FAQ: faq.md
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/XuXuClassMate/trading-assistant
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/xuxuclassmate/trading-assistant
+  version:
+    provider: mike
