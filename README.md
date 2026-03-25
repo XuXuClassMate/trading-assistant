@@ -6,7 +6,7 @@
 **Author**: OpenClaw Community  
 **License**: MIT
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [CLI](#-cli-usage) • [Configuration](#-configuration) • [Documentation](#-documentation)
+[📚 Docs Website](https://xuxuclassmate.github.io/trading-assistant/) • [Features](#-features) • [Installation](#-installation) • [Usage](#-usage)
 
 ---
 
@@ -100,38 +100,21 @@ Risk/Reward: 1:2.0
 
 ## 🛠️ Installation
 
+**📚 Complete guides**: https://xuxuclassmate.github.io/trading-assistant/guides/install-overview/
+
+### Quick Comparison
+
+| Method | Command | Time |
+|--------|---------|------|
+| **Docker** ⭐ | `docker run -it ghcr.io/xuxuclassmate/trading-assistant:latest` | 5 min |
+| **pip** | `pip install openclaw-trading-assistant` | 10 min |
+| **npm** | `npm install -g @xuxuclassmate/openclaw-trading-assistant` | 10 min |
+| **Source** | `git clone + pip install -e .` | 15 min |
+
 ### Prerequisites
 
-- Python 3.11+
 - Twelve Data API Key ([Get Free](https://twelvedata.com/pricing) - 800 calls/day)
 - Alpha Vantage API Key ([Get Free](https://www.alphavantage.co/support/#api-key) - 25 calls/day)
-
-### Quick Start
-
-```bash
-# 1. Clone repository
-git clone https://github.com/XuXuClassMate/trading-assistant.git
-cd trading-assistant
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Configure API Keys
-cp .env.example .env
-# Edit .env with your API Keys
-
-# 4. Configure Watchlist
-cp watchlist.txt.example watchlist.txt
-# Edit watchlist.txt with your stocks
-
-# 5. (Optional) Configure Notifications
-# Edit .env and fill in notification credentials (leave empty to disable)
-
-# 6. Test installation
-python3 support_resistance.py
-python3 trading_signals.py
-python3 position_calculator.py
-```
 
 ### 🐳 Docker Installation (Recommended)
 
