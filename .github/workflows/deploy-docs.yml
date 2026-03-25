@@ -1,0 +1,52 @@
+name: Deploy Documentation / 部署文档网站
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages / 部署到 GitHub Pages
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout / 检出代码
+        uses: actions/checkout@v4
+      
+      - name: Setup Python / 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install MkDocs / 安装 MkDocs
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-minify-plugin
+      
+      - name: Build and Deploy / 构建并部署
+        run: |
+          echo "📚 Building documentation..."
+          mkdocs build
+          
+          echo "✅ Documentation built!"
+          echo ""
+          echo "🌐 Site will be available at:"
+          echo "   https://xuxuclassmate.github.io/trading-assistant/"
+          
+          # Deploy to gh-pages branch
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git checkout -b gh-pages
+          git add -f site/
+          git commit -m "Deploy documentation [skip ci]"
+          git push -f origin gh-pages
+          
+          echo ""
+          echo "🎉 Documentation deployed!"
