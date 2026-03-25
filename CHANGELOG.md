@@ -8,6 +8,90 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.3.0] - 2026-03-25
+
+### 🖥️ CLI Interactive Mode
+
+#### ✨ New Features
+
+- 🖥️ **Interactive CLI Mode**
+  - Full interactive command-line interface
+  - Command history and auto-completion support
+  - Bilingual prompts (English/Chinese)
+  - Built-in help system
+
+- 📋 **Available Commands**
+  - `interactive` - Start interactive mode / 交互模式
+  - `support-resistance` - Analyze support/resistance levels
+  - `signals` - Generate trading signals
+  - `position` - Calculate position size
+  - `alerts` - Manage price alerts
+  - `all` - Run all analysis
+  - `version` - Show version info
+  - `help` - Show help message
+
+- 🎯 **Command Shortcuts**
+  - `sr` → support-resistance
+  - `sig` → signals
+  - `pos` → position
+  - `calc` → position calculator
+
+#### 🔧 Improvements
+
+- 📦 **Package Entry Point**
+  - Added `[project.scripts]` to pyproject.toml
+  - CLI accessible via `openclaw-trading-assistant` command
+  - Works in Docker containers and pip installations
+
+#### 📚 Documentation
+
+- Updated README with CLI usage examples
+- Added interactive mode screenshots
+- Docker documentation updated
+
+---
+
+### 🖥️ CLI 交互模式
+
+#### ✨ 新功能
+
+- 🖥️ **交互式命令行界面**
+  - 完整的交互式 CLI
+  - 支持命令历史和自动补全
+  - 双语提示（英文/中文）
+  - 内置帮助系统
+
+- 📋 **可用命令**
+  - `interactive` - 启动交互模式
+  - `support-resistance` - 分析支撑阻力位
+  - `signals` - 生成交易信号
+  - `position` - 计算仓位大小
+  - `alerts` - 管理价格提醒
+  - `all` - 运行所有分析
+  - `version` - 显示版本信息
+  - `help` - 显示帮助信息
+
+- 🎯 **命令快捷方式**
+  - `sr` → support-resistance
+  - `sig` → signals
+  - `pos` → position
+  - `calc` → 仓位计算器
+
+#### 🔧 改进
+
+- 📦 **包入口点**
+  - 在 pyproject.toml 中添加 [project.scripts]
+  - 可通过 `openclaw-trading-assistant` 命令访问
+  - 支持 Docker 容器和 pip 安装
+
+#### 📚 文档
+
+- README 更新 CLI 使用示例
+- 添加交互模式截图
+- Docker 文档更新
+
+---
+
 ## [1.2.0] - 2026-03-24
 
 ### 🐳 Docker Support & Multi-Platform Distribution

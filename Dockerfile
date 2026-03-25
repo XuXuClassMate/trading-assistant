@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy project files
 COPY pyproject.toml README.md ./
 COPY *.py ./
+COPY locales/ ./locales/
 
 # Install the package
 RUN pip install --no-cache-dir .

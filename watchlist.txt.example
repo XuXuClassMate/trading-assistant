@@ -1,28 +1,17 @@
-# ===========================================
-# Watchlist Configuration / 自选股配置
-# ===========================================
-# Add your stock symbols here (one per line)
-# 每行一个股票代码
+# Watchlist - One symbol per line
+# US Stocks
+NVDA
+AAPL
+MSFT
+GOOGL
+AMZN
+TSLA
+META
+AMD
 
-# Example US Stocks / 美股示例:
-# NVDA
-# AAPL
-# MSFT
-# GOOGL
-# AMZN
-# TSLA
-# META
-# SPY
-# QQQ
+# ETFs
+QQQ
+SPY
 
-# Example A-Share Stocks / A 股示例:
-# 600519.SH (贵州茅台)
-# 000858.SZ (五粮液)
-# 300750.SZ (宁德时代)
-
-# Example HK Stocks / 港股示例:
-# 0700.HK (腾讯控股)
-# 9988.HK (阿里巴巴)
-
-# Add your stocks below / 在下方添加你的股票:
+# Add your own symbols below
 

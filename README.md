@@ -2,11 +2,11 @@
 
 <div align="center">
 
-**Version**: v1.2.0 (2026-03-24)  
+**Version**: v1.3.0 (2026-03-25)  
 **Author**: OpenClaw Community  
 **License**: MIT
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Configuration](#-configuration) • [Documentation](#-documentation)
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [CLI](#-cli-usage) • [Configuration](#-configuration) • [Documentation](#-documentation)
 
 ---
 
@@ -173,6 +173,100 @@ docker run --rm -it \
 - `xuxuclassmate/trading-assistant:latest` - Docker Hub (latest)
 
 **Supported Platforms**: linux/amd64, linux/arm64
+
+---
+
+## 🖥️ CLI Usage
+
+### 🚀 Quick Start
+
+```bash
+# Start interactive mode
+openclaw-trading-assistant
+
+# Or use shortcut
+openclaw-trading-assistant interactive
+```
+
+### 📋 Available Commands
+
+| Command | Shortcut | Description |
+|---------|----------|-------------|
+| `interactive` | `interact`, `cli` | Start interactive mode / 交互模式 |
+| `support-resistance` | `sr` | Analyze support/resistance levels |
+| `signals` | `sig` | Generate trading signals |
+| `position` | `pos`, `calc` | Calculate position size |
+| `alerts` | `alert`, `alarm` | Manage price alerts |
+| `all` | `full`, `analyze` | Run all analysis |
+| `version` | `v` | Show version info |
+| `help` | `h` | Show help message |
+
+### 💡 Examples
+
+**Interactive Mode**:
+```bash
+$ openclaw-trading-assistant
+
+============================================================
+  OpenClaw Trading Assistant CLI
+  Version: 1.3.0
+============================================================
+
+Welcome to OpenClaw Trading Assistant Interactive CLI
+Type 'help' for available commands, 'exit' to quit
+
+trading-assistant> help
+trading-assistant> signals
+trading-assistant> position --symbol NVDA --price 175.64 --capital 10000
+trading-assistant> exit
+```
+
+**Direct Commands**:
+```bash
+# Analyze support/resistance for watchlist
+openclaw-trading-assistant support-resistance
+
+# Generate signals for specific symbol
+openclaw-trading-assistant signals --symbol NVDA
+
+# Calculate position size
+openclaw-trading-assistant position --symbol NVDA --price 175.64 --capital 10000
+
+# Check all alerts
+openclaw-trading-assistant alerts check
+
+# Run all analysis
+openclaw-trading-assistant all
+```
+
+**Alerts Management**:
+```bash
+# List all alerts
+openclaw-trading-assistant alerts list
+
+# Create new alert
+openclaw-trading-assistant alerts create --symbol NVDA --entry 175 --stop 170 --target 185
+
+# Check alerts (triggered automatically)
+openclaw-trading-assistant alerts check
+```
+
+### 🐳 Docker CLI Usage
+
+```bash
+# Interactive mode in Docker
+docker run --rm -it \
+  -v $(pwd)/.env:/app/.env \
+  -v $(pwd)/watchlist.txt:/app/watchlist.txt \
+  ghcr.io/xuxuclassmate/trading-assistant:latest
+
+# Direct command in Docker
+docker run --rm -it \
+  -v $(pwd)/.env:/app/.env \
+  -v $(pwd)/watchlist.txt:/app/watchlist.txt \
+  ghcr.io/xuxuclassmate/trading-assistant:latest \
+  signals
+```
 
 ---
 
