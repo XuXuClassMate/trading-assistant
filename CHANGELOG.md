@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+
+## [1.3.1] - 2026-03-25
+
+### 🆕 Coming Soon
+
+- Details TBD
+
 ## [1.3.0] - 2026-03-25
 
 ### 🖥️ CLI Interactive Mode

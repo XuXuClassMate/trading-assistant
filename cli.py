@@ -31,7 +31,7 @@ from trading_signals import SignalGenerator
 from position_calculator import PositionCalculator
 from stop_loss_alerts import StopLossAlert
 
-VERSION = "1.2.0"
+VERSION = "1.3.1"
 
 
 def print_banner():

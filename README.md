@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Version**: v1.3.0 (2026-03-25)  
+**Version**: v1.3.1 (2026-03-25)  
 **Author**: OpenClaw Community  
 **License**: MIT
 
