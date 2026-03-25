@@ -41,6 +41,7 @@ dev = [
 ]
 
 [project.scripts]
+ta = "cli:main"
 openclaw-trading-assistant = "cli:main"
 
 [project.urls]

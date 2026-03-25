@@ -21,26 +21,25 @@ All notable changes to this project will be documented in this file.
   - Built-in help system
 
 - 📋 **Available Commands**
-  - `interactive` - Start interactive mode / 交互模式
-  - `support-resistance` - Analyze support/resistance levels
-  - `signals` - Generate trading signals
-  - `position` - Calculate position size
-  - `alerts` - Manage price alerts
-  - `all` - Run all analysis
-  - `version` - Show version info
-  - `help` - Show help message
+  - `ta` - Start interactive mode / 交互模式
+  - `ta sr` - Analyze support/resistance levels
+  - `ta sig` - Generate trading signals
+  - `ta pos` - Calculate position size
+  - `ta alerts` - Manage price alerts
+  - `ta all` - Run all analysis
+  - `ta v` - Show version info
+  - `ta h` - Show help message
 
-- 🎯 **Command Shortcuts**
-  - `sr` → support-resistance
-  - `sig` → signals
-  - `pos` → position
-  - `calc` → position calculator
+- 🎯 **Short & Sweet**
+  - Command: `ta` (2 letters! Trading Assistant)
+  - Also supports: `openclaw-trading-assistant` (full name)
 
 #### 🔧 Improvements
 
 - 📦 **Package Entry Point**
   - Added `[project.scripts]` to pyproject.toml
-  - CLI accessible via `openclaw-trading-assistant` command
+  - CLI accessible via `ta` command (short!)
+  - Also works with `openclaw-trading-assistant`
   - Works in Docker containers and pip installations
 
 #### 📚 Documentation

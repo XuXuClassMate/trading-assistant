@@ -181,74 +181,51 @@ docker run --rm -it \
 ### 🚀 Quick Start
 
 ```bash
-# Start interactive mode
-openclaw-trading-assistant
+# Start interactive mode (short & sweet!)
+ta
 
-# Or use shortcut
-openclaw-trading-assistant interactive
+# Full name also works
+openclaw-trading-assistant
 ```
 
 ### 📋 Available Commands
 
-| Command | Shortcut | Description |
-|---------|----------|-------------|
-| `interactive` | `interact`, `cli` | Start interactive mode / 交互模式 |
-| `support-resistance` | `sr` | Analyze support/resistance levels |
-| `signals` | `sig` | Generate trading signals |
-| `position` | `pos`, `calc` | Calculate position size |
-| `alerts` | `alert`, `alarm` | Manage price alerts |
-| `all` | `full`, `analyze` | Run all analysis |
-| `version` | `v` | Show version info |
-| `help` | `h` | Show help message |
+| Command | Example | Description |
+|---------|---------|-------------|
+| `ta` | `ta` | Start interactive mode / 交互模式 |
+| `ta sr` | `ta sr` | Analyze support/resistance / 分析支撑阻力位 |
+| `ta sig` | `ta sig --symbol NVDA` | Generate signals / 生成信号 |
+| `ta pos` | `ta pos --symbol NVDA --price 175 --capital 10000` | Calculate position / 计算仓位 |
+| `ta alerts` | `ta alerts check` | Manage alerts / 管理提醒 |
+| `ta all` | `ta all` | Run all analysis / 运行所有分析 |
+| `ta v` | `ta v` | Show version / 显示版本 |
+| `ta h` | `ta h` | Show help / 显示帮助 |
 
 ### 💡 Examples
 
 **Interactive Mode**:
 ```bash
-$ openclaw-trading-assistant
+$ ta
 
 ============================================================
   OpenClaw Trading Assistant CLI
   Version: 1.3.0
 ============================================================
 
-Welcome to OpenClaw Trading Assistant Interactive CLI
-Type 'help' for available commands, 'exit' to quit
-
-trading-assistant> help
-trading-assistant> signals
-trading-assistant> position --symbol NVDA --price 175.64 --capital 10000
-trading-assistant> exit
+ta> help
+ta> sig
+ta> pos --symbol NVDA --price 175.64 --capital 10000
+ta> exit
 ```
 
 **Direct Commands**:
 ```bash
-# Analyze support/resistance for watchlist
-openclaw-trading-assistant support-resistance
-
-# Generate signals for specific symbol
-openclaw-trading-assistant signals --symbol NVDA
-
-# Calculate position size
-openclaw-trading-assistant position --symbol NVDA --price 175.64 --capital 10000
-
-# Check all alerts
-openclaw-trading-assistant alerts check
-
-# Run all analysis
-openclaw-trading-assistant all
-```
-
-**Alerts Management**:
-```bash
-# List all alerts
-openclaw-trading-assistant alerts list
-
-# Create new alert
-openclaw-trading-assistant alerts create --symbol NVDA --entry 175 --stop 170 --target 185
-
-# Check alerts (triggered automatically)
-openclaw-trading-assistant alerts check
+ta sr                      # Support/Resistance
+ta sig                     # Signals for watchlist
+ta sig --symbol NVDA       # Signals for specific stock
+ta pos --symbol NVDA --price 175.64 --capital 10000
+ta alerts check
+ta all                     # Run everything
 ```
 
 ### 🐳 Docker CLI Usage
@@ -265,7 +242,7 @@ docker run --rm -it \
   -v $(pwd)/.env:/app/.env \
   -v $(pwd)/watchlist.txt:/app/watchlist.txt \
   ghcr.io/xuxuclassmate/trading-assistant:latest \
-  signals
+  ta sig
 ```
 
 ---

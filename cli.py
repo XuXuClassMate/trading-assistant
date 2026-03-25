@@ -210,7 +210,7 @@ def interactive_mode():
     
     while True:
         try:
-            user_input = input("trading-assistant> ").strip()
+            user_input = input("ta> ").strip()
             
             if not user_input:
                 continue
