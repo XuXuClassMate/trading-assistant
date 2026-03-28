@@ -1,0 +1,62 @@
+{
+  "name": "openclaw-trading-assistant",
+  "version": "1.3.2",
+  "description": "AI-Powered Trading Decision Support System - Technical Analysis, Trading Signals, Position Management",
+  "main": "cli.js",
+  "bin": {
+    "ta": "cli.js",
+    "openclaw-trading-assistant": "cli.js"
+  },
+  "scripts": {
+    "start": "node cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node -e \"console.log('🎉 Trading Assistant installed! Run \\`ta --help\\` to get started.')\""
+  },
+  "keywords": [
+    "trading",
+    "stock",
+    "technical-analysis",
+    "finance",
+    "investment",
+    "openclaw",
+    "ai",
+    "cryptocurrency",
+    "portfolio"
+  ],
+  "author": {
+    "name": "XuXuClassMate",
+    "email": "mail@xuxuclassmate.com",
+    "url": "https://github.com/XuXuClassMate"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XuXuClassMate/trading-assistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XuXuClassMate/trading-assistant/issues"
+  },
+  "homepage": "https://xuxuclassmate.github.io/trading-assistant/",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "preferGlobal": true,
+  "files": [
+    "cli.js",
+    "trading_signals.py",
+    "support_resistance.py",
+    "position_calculator.py",
+    "stop_loss_alerts.py",
+    "realtime_monitor.py",
+    "backtest_engine.py",
+    "config.py",
+    "i18n.py",
+    "README.md",
+    "LICENSE"
+  ]
+}

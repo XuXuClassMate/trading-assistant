@@ -1,0 +1,25 @@
+name: Test NPM Token / 测试 NPM_TOKEN
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Check NPM_TOKEN
+        run: |
+          echo "NPM_TOKEN exists: $([ -n "$NPM_TOKEN" ] && echo YES || echo NO)"
+          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
+          echo "NPM_TOKEN prefix: ${NPM_TOKEN:0:10}..."
+          npm whoami || echo "Not logged in"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

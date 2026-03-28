@@ -1,0 +1,100 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Configuration Files / 配置文件
+.env
+config.json
+*.local.py
+
+# Logs / 日志
+logs/
+*.log
+
+# Data / 数据
+data/
+*.json
+!package.json
+!locales/*.json
+
+# Testing / 测试
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# System Files / 系统文件
+.DS_Store
+Thumbs.db
+
+# Temporary Files / 临时文件
+tmp/
+temp/
+*.tmp
+
+# Sensitive Information / 敏感信息
+*.key
+*.pem
+*.secret
+
+# Development Files / 开发文件 (not for ClawHub submission)
+daily_reports/
+dev_*.py
+demo_*.py
+screenshots_*.txt
+*.md.bak
+READY_FOR_CLAWHUB.md
+CLAWHUB_READY.md
+UPLOAD_COMPLETE.md
+# But keep tests/ directory
+!tests/test_*.py
+
+# User Configuration / 用户配置 (do not commit)
+.env
+watchlist.txt
+config.local.py
+*.local.json
+GITHUB_SETUP_COMPLETE.md
+PACKAGE_SETUP_COMPLETE.md
+
+# Build artifacts / 构建产物
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Release scripts (not for package)
+scripts/MANUAL_RELEASE_GUIDE.md
+scripts/check_releases.py
+scripts/create_release.py
+scripts/create_release_urllib.py
+
+# Test scripts
+scripts/test_*.py

@@ -1,0 +1,26 @@
+name: Update Docker Hub README / 更新 Docker Hub 描述
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'DOCKERHUB_README.md'
+
+jobs:
+  update-dockerhub-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: xuxuclassmate
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: xuxuclassmate/trading-assistant
+          readme-filepath: ./DOCKERHUB_README.md
+          short-description: "AI-Powered Trading Decision Support System - Technical Analysis, Trading Signals, Position Management"

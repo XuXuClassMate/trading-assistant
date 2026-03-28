@@ -1,0 +1,147 @@
+site_name: OpenClaw Trading Assistant 📊
+site_description: AI-Powered Trading Decision Support System
+site_author: XuXuClassMate
+site_url: https://xuxuclassmate.github.io/trading-assistant/
+
+repo_name: XuXuClassMate/trading-assistant
+repo_url: https://github.com/XuXuClassMate/trading-assistant
+
+
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - navigation.top
+    - navigation.instant
+    - navigation.instant.prefetch
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.svg
+  logo: assets/logo.svg
+  custom_dir: docs/overrides
+
+nav:
+  - Home: index.md
+  - Installation:
+    - Overview: guides/install-overview.md
+    - API Keys: guides/api-keys.md
+    - Watchlist Setup: guides/watchlist-setup.md
+    - Docker: guides/docker-install.md
+    - pip: guides/pip-install.md
+    - npm: guides/npm-install.md
+    - Source: guides/source-install.md
+  - CLI Reference: CLI.md
+  - Guides:
+    - Getting Started: guides/getting-started.md
+    - Daily Reports: guides/daily-reports.md
+    - Trading Signals: guides/trading-signals.md
+    - Real-time Monitor & Backtest: guides/realtime-backtest.md
+    - Advanced Indicators: guides/advanced-indicators.md
+    - Live Trading Interface: guides/live-trading.md
+    - Position Cost Analysis: guides/cost-analysis.md
+    - Quantitative Analysis: guides/quantitative-analysis.md
+    - Performance Optimization: guides/performance-optimization.md
+    - Quant Strategies (A-Share): guides/quant-strategies-a-share.md
+    - Position Management: guides/position-management.md
+    - Price Alerts: guides/price-alerts.md
+    - Technical Analysis: guides/technical-analysis.md
+    - Risk Management: guides/risk-management.md
+  - FAQ: FAQ.md
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      use_directory_urls: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: zh
+          name: 中文
+          build: true
+          nav_translations:
+            Home: 首页
+            Installation: 安装指南
+            Overview: 安装概览
+            API Keys: API 密钥设置
+            Watchlist Setup: 自选股设置
+            Docker: Docker 安装
+            pip: pip 安装
+            npm: npm 安装
+            Source: 源码安装
+            CLI Reference: CLI 参考
+            Guides: 使用指南
+            Getting Started: 入门指南
+            Daily Reports: 日报系统
+            Trading Signals: 交易信号
+            Real-time Monitor & Backtest: 实时监控与回测
+            Advanced Indicators: 高级指标
+            Live Trading Interface: 实盘接口
+            Position Cost Analysis: 持仓成本分析
+            Quantitative Analysis: 量化分析
+            Performance Optimization: 性能优化
+            Quant Strategies (A-Share): A 股量化策略
+            Position Management: 仓位管理
+            Price Alerts: 价格提醒
+            Technical Analysis: 技术分析
+            Risk Management: 风险管理
+            FAQ: 常见问题
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - tables
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - js/fix-links.js
+  - js/lang-switch.js
+
+extra:
+  homepage_url: https://xuxuclassmate.github.io/trading-assistant/
+  base_url: /trading-assistant/
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/XuXuClassMate/trading-assistant
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/xuxuclassmate/trading-assistant
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/openclaw-trading-assistant/
+  generator: true
