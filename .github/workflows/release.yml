@@ -80,39 +80,36 @@ jobs:
       - name: Create source tarball
         run: |
           echo "📦 Creating trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
-          tar -czf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz \
-            --exclude='*.tar.gz' \
-            --exclude='*.tgz' \
-            --exclude='node_modules' \
-            --exclude='.git' \
-            --exclude='__pycache__' \
-            --exclude='*.pyc' \
-            --exclude='reports/*' \
-            --exclude='logs/*' \
-            --exclude='data/*' \
-            --exclude='sent/*' \
-            --exclude='portfolio/*' \
-            --exclude='cache/*' \
-            --exclude='.env' \
-            --exclude='config.json' \
-            --exclude='feishu_config.json' \
-            --exclude='watchlist.txt' \
-            --exclude='accuracy_log.json' \
-            --exclude='sentiment_report.json' \
-            --exclude='*.log' \
-            --exclude='.pytest_cache' \
-            --exclude='site/*' \
-            --exclude='daily_reports/*' \
-            --exclude='screenshots_*.txt' \
-            --exclude='PUSH_COMPLETE.md' \
-            --exclude='GITHUB_RELEASE_INSTRUCTIONS.md' \
-            --exclude='create_upload_tarball.sh' \
-            --exclude='GITHUB_ACTIONS_SETUP.md' \
-            --exclude='GITHUB_ACTIONS_MULTI_BUILD.md' \
-            .
+          
+          # 创建临时目录
+          TEMP_DIR=$(mktemp -d)
+          
+          # 复制必要文件
+          cp -r . "${TEMP_DIR}/src"
+          
+          # 删除不需要的文件
+          cd "${TEMP_DIR}/src"
+          rm -rf .git .github __pycache__ node_modules .pytest_cache
+          rm -rf reports logs data sent portfolio cache site daily_reports
+          rm -f .env config.json feishu_config.json watchlist.txt
+          rm -f *.log *.tar.gz *.tgz
+          rm -f accuracy_log.json sentiment_report.json
+          rm -f screenshots_*.txt
+          rm -f PUSH_COMPLETE.md GITHUB_RELEASE_INSTRUCTIONS.md
+          rm -f create_upload_tarball.sh
+          rm -f GITHUB_ACTIONS_SETUP.md GITHUB_ACTIONS_MULTI_BUILD.md
+          rm -f CLAWHUB_UPLOAD_READY.md REBUILD_NOTES.md RE_PUSH_COMPLETE.md
+          rm -f build_clawhub.sh
+          
+          # 打包
+          cd "${TEMP_DIR}"
+          tar -czf "${{ github.workspace }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz" src
+          
+          # 清理
+          rm -rf "${TEMP_DIR}"
           
           echo "✅ Source tarball created"
-          ls -lh trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
+          ls -lh "${{ github.workspace }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
 
       - name: Verify tarball contents
         run: |
