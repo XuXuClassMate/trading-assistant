@@ -25,7 +25,7 @@ python3 --version
 ### 2. Install from PyPI
 
 ```bash
-pip install openclaw-trading-assistant
+pip install trading-assistant
 ```
 
 ### 3. Verify Installation
@@ -156,10 +156,10 @@ ta
 
 ```bash
 # Check for updates
-pip list | grep openclaw-trading-assistant
+pip list | grep trading-assistant
 
 # Update to latest version
-pip install --upgrade openclaw-trading-assistant
+pip install --upgrade trading-assistant
 
 # Verify update
 ta --version
@@ -170,7 +170,7 @@ ta --version
 ## 🗑️ Uninstall
 
 ```bash
-pip uninstall openclaw-trading-assistant
+pip uninstall trading-assistant
 ```
 
 ---
@@ -193,10 +193,10 @@ python3 --version
 
 ```bash
 # Install for current user only
-pip install --user openclaw-trading-assistant
+pip install --user trading-assistant
 
 # Or use sudo (not recommended)
-sudo pip install openclaw-trading-assistant
+sudo pip install trading-assistant
 ```
 
 ### Command Not Found
@@ -204,7 +204,7 @@ sudo pip install openclaw-trading-assistant
 ```bash
 # Add pip bin directory to PATH
 # Find pip path
-pip show -f openclaw-trading-assistant | grep Location
+pip show -f trading-assistant | grep Location
 
 # Add to PATH (example for ~/.bashrc or ~/.zshrc)
 export PATH=$PATH:~/.local/bin
@@ -234,6 +234,6 @@ If you hit API rate limits:
 
 ## 🔗 Related Links
 
-- [PyPI Package](https://pypi.org/project/openclaw-trading-assistant/)
+- [PyPI Package](https://pypi.org/project/trading-assistant/)
 - [Python Documentation](https://docs.python.org/)
 - [pip Documentation](https://pip.pypa.io/)

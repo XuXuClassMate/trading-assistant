@@ -36,7 +36,7 @@ docker run --rm -it \
 **Why**: Native Python integration, easy to extend
 
 ```bash
-pip install openclaw-trading-assistant
+pip install trading-assistant
 ```
 
 [→ pip Guide](pip-install.md)
@@ -48,7 +48,7 @@ pip install openclaw-trading-assistant
 **Why**: Use in JavaScript/TypeScript projects
 
 ```bash
-npm install -g @xuxuclassmate/openclaw-trading-assistant
+npm install -g @xuxuclassmate/trading-assistant
 ```
 
 [→ npm Guide](npm-install.md)

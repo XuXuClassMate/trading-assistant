@@ -210,10 +210,10 @@ echo "AAPL" >> watchlist.txt
 Make sure installation completed:
 ```bash
 # For pip
-pip show openclaw-trading-assistant
+pip show trading-assistant
 
 # For npm
-npm list -g @xuxuclassmate/openclaw-trading-assistant
+npm list -g @xuxuclassmate/trading-assistant
 ```
 
 ---

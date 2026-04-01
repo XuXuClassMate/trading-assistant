@@ -239,7 +239,7 @@ For detailed usage including daily reports, learning system, and automation setu
 - ⚠️ Removed `python-dotenv` dependency / 移除 python-dotenv 依赖
 
 **Release Channels / 发布渠道**:
-- ✅ PyPI: `openclaw-trading-assistant==2.0.0`
+- ✅ PyPI: `trading-assistant==2.0.0`
 - ✅ npm: `@xuxuclassmate/trading-assistant@2.0.0`
 - ✅ Docker Hub: `xuxuclassmate/trading-assistant:v2.0.0`
 - ✅ GHCR: `ghcr.io/xuxuclassmate/trading-assistant:v2.0.0`

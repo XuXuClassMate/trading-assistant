@@ -8,7 +8,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/xuxuclassmate/trading-assistant)](https://hub.docker.com/r/xuxuclassmate/trading-assistant)
 [![License](https://img.shields.io/github/license/XuXuClassMate/trading-assistant)](https://github.com/XuXuClassMate/trading-assistant/blob/main/LICENSE)
 
-[📚 Documentation](https://xuxuclassmate.github.io/trading-assistant/) • [🐙 GitHub](https://github.com/XuXuClassMate/trading-assistant) • [📦 PyPI](https://pypi.org/project/openclaw-trading-assistant/)
+[📚 Documentation](https://xuxuclassmate.github.io/trading-assistant/) • [🐙 GitHub](https://github.com/XuXuClassMate/trading-assistant) • [📦 PyPI](https://pypi.org/project/trading-assistant/)
 
 </div>
 
@@ -227,8 +227,8 @@ For complete guides, visit:
 | Method | Command | Time |
 |--------|---------|------|
 | **Docker** ⭐ | `docker pull xuxuclassmate/trading-assistant:latest` | 5 min |
-| **pip** | `pip install openclaw-trading-assistant` | 10 min |
-| **npm** | `npm install -g @xuxuclassmate/openclaw-trading-assistant` | 10 min |
+| **pip** | `pip install trading-assistant` | 10 min |
+| **npm** | `npm install -g @xuxuclassmate/trading-assistant` | 10 min |
 | **Source** | `git clone + pip install -e .` | 15 min |
 
 ---
@@ -275,7 +275,7 @@ ta sig
 ta all
 
 # Also works (full name)
-openclaw-trading-assistant
+trading-assistant
 ```
 
 ### Volume Mount Issues
@@ -303,8 +303,8 @@ docker run --rm -it \
 
 - **GitHub**: https://github.com/XuXuClassMate/trading-assistant
 - **Documentation**: https://xuxuclassmate.github.io/trading-assistant/
-- **PyPI**: https://pypi.org/project/openclaw-trading-assistant/
-- **npm**: https://github.com/XuXuClassMate/trading-assistant/pkgs/npm/openclaw-trading-assistant
+- **PyPI**: https://pypi.org/project/trading-assistant/
+- **npm**: https://github.com/XuXuClassMate/trading-assistant/pkgs/npm/trading-assistant
 - **Issues**: https://github.com/XuXuClassMate/trading-assistant/issues
 - **Discussions**: https://github.com/XuXuClassMate/trading-assistant/discussions
 

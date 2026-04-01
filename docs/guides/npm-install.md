@@ -25,7 +25,7 @@ node --version
 ### 2. Install from npm
 
 ```bash
-npm install -g @xuxuclassmate/openclaw-trading-assistant
+npm install -g @xuxuclassmate/trading-assistant
 ```
 
 ### 3. Verify Installation
@@ -119,7 +119,7 @@ ta all
 ### Use in Node.js Projects
 
 ```javascript
-const { TradingAssistant } = require('@xuxuclassmate/openclaw-trading-assistant');
+const { TradingAssistant } = require('@xuxuclassmate/trading-assistant');
 
 const ta = new TradingAssistant({
   twelveDataKey: 'your_key',
@@ -143,7 +143,7 @@ console.log(position);
 ### Use in TypeScript
 
 ```typescript
-import { TradingAssistant, Signal } from '@xuxuclassmate/openclaw-trading-assistant';
+import { TradingAssistant, Signal } from '@xuxuclassmate/trading-assistant';
 
 const ta = new TradingAssistant({
   twelveDataKey: process.env.TWELVE_DATA_API_KEY,
@@ -159,10 +159,10 @@ const signals: Signal[] = await ta.getSignals('NVDA');
 
 ```bash
 # Check for updates
-npm outdated @xuxuclassmate/openclaw-trading-assistant
+npm outdated @xuxuclassmate/trading-assistant
 
 # Update to latest version
-npm update -g @xuxuclassmate/openclaw-trading-assistant
+npm update -g @xuxuclassmate/trading-assistant
 
 # Verify update
 ta --version
@@ -173,7 +173,7 @@ ta --version
 ## 🗑️ Uninstall
 
 ```bash
-npm uninstall -g @xuxuclassmate/openclaw-trading-assistant
+npm uninstall -g @xuxuclassmate/trading-assistant
 ```
 
 ---
@@ -190,7 +190,7 @@ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 
 # Then install
-npm install -g @xuxuclassmate/openclaw-trading-assistant
+npm install -g @xuxuclassmate/trading-assistant
 ```
 
 ### Command Not Found
@@ -219,7 +219,7 @@ node --version
 
 ## 📦 Package Info
 
-- **Package Name**: `@xuxuclassmate/openclaw-trading-assistant`
+- **Package Name**: `@xuxuclassmate/trading-assistant`
 - **Registry**: GitHub Packages
 - **Version**: 1.1.3
 - **License**: MIT
@@ -228,7 +228,7 @@ node --version
 
 ## 🔗 Related Links
 
-- [npm Package](https://github.com/XuXuClassMate/trading-assistant/pkgs/npm/openclaw-trading-assistant)
+- [npm Package](https://github.com/XuXuClassMate/trading-assistant/pkgs/npm/trading-assistant)
 - [Node.js Documentation](https://nodejs.org/docs/)
 - [npm Documentation](https://docs.npmjs.com/)
 

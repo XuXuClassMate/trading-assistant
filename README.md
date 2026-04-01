@@ -107,8 +107,8 @@ Risk/Reward: 1:2.0
 | Method | Command | Time |
 |--------|---------|------|
 | **Docker** ⭐ | `docker run -it ghcr.io/xuxuclassmate/trading-assistant:latest` | 5 min |
-| **pip** | `pip install openclaw-trading-assistant` | 10 min |
-| **npm** | `npm install -g @xuxuclassmate/openclaw-trading-assistant` | 10 min |
+| **pip** | `pip install trading-assistant` | 10 min |
+| **npm** | `npm install -g @xuxuclassmate/trading-assistant` | 10 min |
 | **Source** | `git clone + pip install -e .` | 15 min |
 
 ### Prerequisites
@@ -168,7 +168,7 @@ docker run --rm -it \
 ta
 
 # Full name also works
-openclaw-trading-assistant
+trading-assistant
 ```
 
 ### 📋 Available Commands

@@ -60,7 +60,7 @@ Automated monitoring for stop-loss and take-profit levels.
 
 === "pip (Python)"
     ```bash
-    pip install openclaw-trading-assistant
+    pip install trading-assistant
     ta
     ```
     
@@ -69,7 +69,7 @@ Automated monitoring for stop-loss and take-profit levels.
 
 === "npm (Node.js)"
     ```bash
-    npm install -g @xuxuclassmate/openclaw-trading-assistant
+    npm install -g @xuxuclassmate/trading-assistant
     ta
     ```
     
@@ -167,8 +167,8 @@ $ ta sig --symbol NVDA
 | Method | Command | Time | Difficulty |
 |--------|---------|------|------------|
 | **Docker** ⭐ | `docker pull xuxuclassmate/trading-assistant:latest` | 5 min | Easy |
-| **pip** | `pip install openclaw-trading-assistant` | 10 min | Medium |
-| **npm** | `npm install -g @xuxuclassmate/openclaw-trading-assistant` | 10 min | Medium |
+| **pip** | `pip install trading-assistant` | 10 min | Medium |
+| **npm** | `npm install -g @xuxuclassmate/trading-assistant` | 10 min | Medium |
 | **Source** | `git clone + pip install -e .` | 15 min | Advanced |
 
 [→ Complete Installation Guide](guides/install-overview.md)
@@ -216,7 +216,7 @@ MIT licensed, community-driven development.
 
 [Docker Hub](https://hub.docker.com/r/xuxuclassmate/trading-assistant){ .badge .badge-success } 🆕 Just Launched
 
-[PyPI](https://pypi.org/project/openclaw-trading-assistant/){ .badge .badge-info } ✅ Published
+[PyPI](https://pypi.org/project/trading-assistant/){ .badge .badge-info } ✅ Published
 
 [GitHub Releases](https://github.com/XuXuClassMate/trading-assistant/releases){ .badge .badge-primary } ✅ Active
 

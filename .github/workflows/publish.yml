@@ -83,7 +83,7 @@ jobs:
             echo "📦 Uploaded to GitHub Release"
             echo ""
             echo "Install with:"
-            echo "  pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
+            echo "  pip install --index-url https://pypi.pkg.github.com/XuXuClassMate trading-assistant==${{ steps.version.outputs.version }}"
           else
             echo "⚠️ Manual run - files not attached to release"
             echo "   Create a release tag to attach artifacts"

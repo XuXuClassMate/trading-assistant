@@ -83,7 +83,7 @@ jobs:
           ls -lh dist/
           echo ""
           echo "📦 GitHub Packages URL:"
-          echo "   https://github.com/XuXuClassMate/trading-assistant/pkgs/python/openclaw-trading-assistant"
+          echo "   https://github.com/XuXuClassMate/trading-assistant/pkgs/python/trading-assistant"
           echo ""
           echo "📥 Install with:"
-          echo "   pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant==${{ steps.version.outputs.version }}"
+          echo "   pip install --index-url https://pypi.pkg.github.com/XuXuClassMate trading-assistant==${{ steps.version.outputs.version }}"

@@ -250,7 +250,7 @@ black --check .
 - ⚠️ Removed `python-dotenv` dependency
 
 **Release Channels**:
-- ✅ PyPI: `openclaw-trading-assistant==2.0.0`
+- ✅ PyPI: `trading-assistant==2.0.0`
 - ✅ npm: `@xuxuclassmate/trading-assistant@2.0.0`
 - ✅ Docker Hub: `xuxuclassmate/trading-assistant:v2.0.0`
 - ✅ GHCR: `ghcr.io/xuxuclassmate/trading-assistant:v2.0.0`

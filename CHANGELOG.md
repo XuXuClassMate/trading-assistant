@@ -39,14 +39,14 @@ All notable changes to this project will be documented in this file.
 
 - 🎯 **Short & Sweet**
   - Command: `ta` (2 letters! Trading Assistant)
-  - Also supports: `openclaw-trading-assistant` (full name)
+  - Also supports: `trading-assistant` (full name)
 
 #### 🔧 Improvements
 
 - 📦 **Package Entry Point**
   - Added `[project.scripts]` to pyproject.toml
   - CLI accessible via `ta` command (short!)
-  - Also works with `openclaw-trading-assistant`
+  - Also works with `trading-assistant`
   - Works in Docker containers and pip installations
 
 #### 📚 Documentation
@@ -87,7 +87,7 @@ All notable changes to this project will be documented in this file.
 
 - 📦 **包入口点**
   - 在 pyproject.toml 中添加 [project.scripts]
-  - 可通过 `openclaw-trading-assistant` 命令访问
+  - 可通过 `trading-assistant` 命令访问
   - 支持 Docker 容器和 pip 安装
 
 #### 📚 文档

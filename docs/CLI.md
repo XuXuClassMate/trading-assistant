@@ -10,7 +10,7 @@ ta
 ta interactive
 
 # Full name (also works) / 完整名称（也可用）
-openclaw-trading-assistant
+trading-assistant
 ```
 
 ## 📋 Commands / 命令
@@ -184,7 +184,7 @@ ta> help
      ghcr.io/xuxuclassmate/trading-assistant:latest
    
    # Or pip (after PyPI token)
-   pip install openclaw-trading-assistant
+   pip install trading-assistant
    ta
    ```
 

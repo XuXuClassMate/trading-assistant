@@ -91,13 +91,13 @@ index-url = https://pypi.pkg.github.com/XuXuClassMate
 extra-index-url = https://pypi.org/simple
 
 # Or use command line / 或使用命令行
-pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant
+pip install --index-url https://pypi.pkg.github.com/XuXuClassMate trading-assistant
 ```
 
 ### From PyPI (future) / 从 PyPI 安装（未来）
 
 ```bash
-pip install openclaw-trading-assistant
+pip install trading-assistant
 ```
 
 ### From Source / 从源码安装
@@ -135,7 +135,7 @@ v2.0.0 → Breaking changes (重大更新)
 
 ### Check GitHub Packages / 检查 GitHub Packages
 
-Visit: https://github.com/XuXuClassMate/trading-assistant/pkgs/python/openclaw-trading-assistant
+Visit: https://github.com/XuXuClassMate/trading-assistant/pkgs/python/trading-assistant
 
 ### Check Release Assets / 检查 Release 资源
 
@@ -186,7 +186,7 @@ ls -lh dist/
 pip cache purge
 
 # Try again / 重试
-pip install --index-url https://pypi.pkg.github.com/XuXuClassMate openclaw-trading-assistant
+pip install --index-url https://pypi.pkg.github.com/XuXuClassMate trading-assistant
 ```
 
 ---

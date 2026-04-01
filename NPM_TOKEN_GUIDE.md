@@ -58,5 +58,5 @@ npm login
 npm publish --access public
 
 # 验证
-npm view @xuxuclassmate/openclaw-trading-assistant
+npm view @xuxuclassmate/trading-assistant
 ```

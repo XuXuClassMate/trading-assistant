@@ -82,7 +82,7 @@ pypi-AgEIcHlwaS5vcmcCJ... (很长的一串)
 1. 添加到 GitHub Secrets
 2. 配置 PyPI 发布工作流
 3. 测试发布
-4. 用户就可以 `pip install openclaw-trading-assistant` 了
+4. 用户就可以 `pip install trading-assistant` 了
 
 ---
 

@@ -37,7 +37,7 @@ npm pack
 npm publish --access public
 
 # 4. 验证
-npm view @xuxuclassmate/openclaw-trading-assistant
+npm view @xuxuclassmate/trading-assistant
 ```
 
 ### 方案 B: 检查 npm 账户

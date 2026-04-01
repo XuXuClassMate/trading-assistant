@@ -3,12 +3,12 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "openclaw-trading-assistant"
+name = "trading-assistant"
 version = "2.0.0"
 authors = [
     {name = "XuXuClassMate"}
 ]
-description = "OpenClaw Trading Assistant - Technical Analysis & Trading Signals"
+description = "Trading Assistant - Technical Analysis & Trading Signals"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.11"
@@ -22,7 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Office/Business :: Financial :: Investment",
 ]
-keywords = ["trading", "finance", "technical-analysis", "stocks", "openclaw"]
+keywords = ["trading", "finance", "technical-analysis", "stocks"]
 
 dependencies = [
     "pandas>=2.0.0",
@@ -47,7 +47,7 @@ docs = [
 
 [project.scripts]
 ta = "cli:main"
-openclaw-trading-assistant = "cli:main"
+trading-assistant = "cli:main"
 
 [project.urls]
 Homepage = "https://github.com/XuXuClassMate/trading-assistant"

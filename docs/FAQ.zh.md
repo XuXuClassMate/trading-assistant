@@ -72,7 +72,7 @@ ta sig
 ta all
 
 # 也可以使用（全名）
-openclaw-trading-assistant
+trading-assistant
 ```
 
 ### 问：Windows 上的卷挂载问题
@@ -126,12 +126,12 @@ docker rm trading-assistant
 
 **pip**：
 ```bash
-pip install --upgrade openclaw-trading-assistant
+pip install --upgrade trading-assistant
 ```
 
 **npm**：
 ```bash
-npm update -g @xuxuclassmate/openclaw-trading-assistant
+npm update -g @xuxuclassmate/trading-assistant
 ```
 
 ---

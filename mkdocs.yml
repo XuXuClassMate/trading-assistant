@@ -143,5 +143,5 @@ extra:
     - icon: fontawesome/brands/docker
       link: https://hub.docker.com/r/xuxuclassmate/trading-assistant
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/openclaw-trading-assistant/
+      link: https://pypi.org/project/trading-assistant/
   generator: true

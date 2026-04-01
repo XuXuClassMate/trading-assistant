@@ -208,7 +208,7 @@ ta --version
 
 ```bash
 # Uninstall package
-pip uninstall openclaw-trading-assistant
+pip uninstall trading-assistant
 
 # Remove virtual environment (if created)
 rm -rf venv

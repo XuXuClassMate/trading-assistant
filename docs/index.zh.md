@@ -64,7 +64,7 @@ title: 首页
 
 === "pip (Python)"
     ```bash
-    pip install openclaw-trading-assistant
+    pip install trading-assistant
     ta
     ```
     
@@ -73,7 +73,7 @@ title: 首页
 
 === "npm (Node.js)"
     ```bash
-    npm install -g @xuxuclassmate/openclaw-trading-assistant
+    npm install -g @xuxuclassmate/trading-assistant
     ta
     ```
     
@@ -171,8 +171,8 @@ $ ta sig --symbol NVDA
 | 方法 | 命令 | 时间 | 难度 |
 |------|------|------|------|
 | **Docker** ⭐ | `docker pull xuxuclassmate/trading-assistant:latest` | 5 分钟 | 简单 |
-| **pip** | `pip install openclaw-trading-assistant` | 10 分钟 | 中等 |
-| **npm** | `npm install -g @xuxuclassmate/openclaw-trading-assistant` | 10 分钟 | 中等 |
+| **pip** | `pip install trading-assistant` | 10 分钟 | 中等 |
+| **npm** | `npm install -g @xuxuclassmate/trading-assistant` | 10 分钟 | 中等 |
 | **源码** | `git clone + pip install -e .` | 15 分钟 | 高级 |
 
 [→ 完整安装指南](guides/install-overview.md)
@@ -220,7 +220,7 @@ MIT 许可，社区驱动开发。
 
 [Docker Hub](https://hub.docker.com/r/xuxuclassmate/trading-assistant){ .badge .badge-success } 🆕 刚刚发布
 
-[PyPI](https://pypi.org/project/openclaw-trading-assistant/){ .badge .badge-info } ✅ 已发布
+[PyPI](https://pypi.org/project/trading-assistant/){ .badge .badge-info } ✅ 已发布
 
 [GitHub Releases](https://github.com/XuXuClassMate/trading-assistant/releases){ .badge .badge-primary } ✅ 活跃
 
