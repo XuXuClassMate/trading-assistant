@@ -164,8 +164,15 @@ jobs:
 
       - name: Verify tarball contents
         run: |
-          echo "🔍 Verifying tarball includes i18n files..."
-          tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | grep -E "i18n|locales" || echo "⚠️ Warning: No i18n files found"
+          echo "🔍 Verifying tarball contents..."
+          echo ""
+          echo "Checking for i18n files:"
+          if tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | grep -E "i18n|locales" > /dev/null 2>&1; then
+            echo "✅ i18n files found:"
+            tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | grep -E "i18n|locales" || true
+          else
+            echo "⚠️ Warning: No i18n files found in tarball"
+          fi
           echo ""
           echo "📊 Total files: $(tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | wc -l)"
 
@@ -195,10 +202,10 @@ jobs:
           #### Python pip (推荐 Recommended)
           ```bash
           # Download
-          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}.tar.gz
+          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
 
           # Install
-          pip install trading-assistant-v${{ steps.get_version.outputs.version }}.tar.gz
+          pip install trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
           ```
 
           #### npm (if available)
