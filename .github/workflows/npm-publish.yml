@@ -12,13 +12,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Check for package.json
+        id: check_npm
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_npm=true" >> $GITHUB_OUTPUT
+            echo "✅ Found package.json"
+          else
+            echo "has_npm=false" >> $GITHUB_OUTPUT
+            echo "⚠️ No package.json, skipping npm publish"
+          fi
+      
       - name: Setup Node.js
+        if: steps.check_npm.outputs.has_npm == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
       
       - name: Setup .npmrc
+        if: steps.check_npm.outputs.has_npm == 'true'
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           echo "registry=https://registry.npmjs.org/" >> .npmrc
@@ -27,7 +40,16 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Install dependencies
+        if: steps.check_npm.outputs.has_npm == 'true'
         run: npm install
       
+      - name: Build package
+        if: steps.check_npm.outputs.has_npm == 'true'
+        run: npm pack
+      
       - name: Publish to npm
-        run: npm publish --access public --no-git-checks
+        if: steps.check_npm.outputs.has_npm == 'true'
+        continue-on-error: true
+        run: npm publish *.tgz --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
