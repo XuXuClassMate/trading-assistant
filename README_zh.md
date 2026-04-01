@@ -258,6 +258,31 @@ python3 -m pytest tests/
 
 ## 📊 版本历史
 
+### v2.0.0 (2026-04-01) - 安全加固版本
+
+**安全修复**:
+- ✅ 移除所有 `sys.path.insert()` 调用 (9 个文件)
+- ✅ 移除运行时 `.env` 文件加载 (4 个文件)
+- ✅ 从 `config.py` 移除 `load_dotenv()`
+- ✅ 移除兄弟模块导入
+- ✅ 更新 SKILL.md 安全模型
+
+**重大变更**:
+- ⚠️ API 密钥必须通过环境变量设置 (不再加载 `.env` 文件)
+- ⚠️ 移除 `python-dotenv` 依赖
+
+**发布渠道**:
+- ✅ PyPI: `openclaw-trading-assistant==2.0.0`
+- ✅ npm: `@xuxuclassmate/trading-assistant@2.0.0`
+- ✅ Docker Hub: `xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GHCR: `ghcr.io/xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GitHub Release: v2.0.0
+- ✅ ClawHub: trading-assistant@2.0.0
+
+### v1.3.1 (2026-03-28)
+
+- 错误修复和改进
+
 ### v1.1.0 (2026-03-24) - 止盈止损提醒
 
 **新增功能**:

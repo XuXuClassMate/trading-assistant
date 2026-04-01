@@ -222,5 +222,37 @@ For detailed usage including daily reports, learning system, and automation setu
 
 ---
 
+## 📝 Changelog / 版本历史
+
+### v2.0.0 (2026-04-01) - Security Hardened / 安全加固
+
+**Security Fixes / 安全修复**:
+- ✅ Removed all `sys.path.insert()` calls (9 files) / 移除所有 sys.path.insert() 调用
+- ✅ Removed runtime `.env` file loading (4 files) / 移除运行时 .env 文件加载
+- ✅ Removed `load_dotenv()` from `config.py` / 从 config.py 移除 load_dotenv()
+- ✅ Removed sibling module imports / 移除兄弟模块导入
+- ✅ Updated SKILL.md security model / 更新 SKILL.md 安全模型
+
+**Breaking Changes / 重大变更**:
+- ⚠️ API keys must be set via environment variables (no `.env` file loading)
+- ⚠️ API 密钥必须通过环境变量设置 (不再加载 .env 文件)
+- ⚠️ Removed `python-dotenv` dependency / 移除 python-dotenv 依赖
+
+**Release Channels / 发布渠道**:
+- ✅ PyPI: `openclaw-trading-assistant==2.0.0`
+- ✅ npm: `@xuxuclassmate/trading-assistant@2.0.0`
+- ✅ Docker Hub: `xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GHCR: `ghcr.io/xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GitHub Release: v2.0.0
+- ✅ ClawHub: trading-assistant@2.0.0
+
+### v1.3.1 (2026-03-28)
+- Bug fixes and improvements / 错误修复和改进
+
+### v1.1.0 (2026-03-24)
+- Take Profit / Stop Loss Alerts / 止盈止损提醒
+
+---
+
 **Last Updated**: 2026-04-01
 **Security Audit**: v2.0.0 - Removed external dependencies, hardened API key handling

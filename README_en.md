@@ -239,19 +239,29 @@ black --check .
 ### v2.0.0 (2026-04-01) - Security Hardened
 
 **Security Fixes**:
-- Removed all `sys.path.insert()` calls (9 files)
-- Removed runtime `.env` file loading (4 files)
-- Removed `load_dotenv()` from `config.py`
-- Removed sibling module imports
-- Updated SKILL.md security model
+- ✅ Removed all `sys.path.insert()` calls (9 files)
+- ✅ Removed runtime `.env` file loading (4 files)
+- ✅ Removed `load_dotenv()` from `config.py`
+- ✅ Removed sibling module imports
+- ✅ Updated SKILL.md security model
 
 **Breaking Changes**:
-- API keys must be set via environment variables (no `.env` file loading)
-- Removed `python-dotenv` dependency
+- ⚠️ API keys must be set via environment variables (no `.env` file loading)
+- ⚠️ Removed `python-dotenv` dependency
+
+**Release Channels**:
+- ✅ PyPI: `openclaw-trading-assistant==2.0.0`
+- ✅ npm: `@xuxuclassmate/trading-assistant@2.0.0`
+- ✅ Docker Hub: `xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GHCR: `ghcr.io/xuxuclassmate/trading-assistant:v2.0.0`
+- ✅ GitHub Release: v2.0.0
+- ✅ ClawHub: trading-assistant@2.0.0
 
 ### v1.3.1 (2026-03-28)
 
 - Bug fixes and improvements
+
+### v1.1.0 (2026-03-24) - Take Profit / Stop Loss Alerts
 
 ---
 
