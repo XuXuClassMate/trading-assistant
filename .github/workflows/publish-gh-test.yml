@@ -60,7 +60,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           # Use GitHub Packages API
-          repository-url: https://upload.pypi.io/legacy/
+          repository-url: https://upload.github.com/
           # Use GITHUB_TOKEN for authentication
           password: ${{ secrets.GITHUB_TOKEN }}
           # Specify the package directory
