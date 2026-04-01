@@ -1,204 +1,171 @@
-# 🚀 OpenClaw Trading Assistant
+# Trading Assistant v2.0.0
 
-<div align="center">
+**Professional Stock Trading Analysis System**
 
-**Version**: v1.0.0  
-**Author**: OpenClaw Community  
-**License**: MIT  
-**Languages**: English, Chinese (Simplified)
-
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Configuration](#-configuration) • [Documentation](#-documentation)
+[![GitHub Release](https://img.shields.io/github/v/release/XuXuClassMate/trading-assistant)](https://github.com/XuXuClassMate/trading-assistant/releases)
+[![License](https://img.shields.io/github/license/XuXuClassMate/trading-assistant)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
 ---
 
-**English** | [中文](README_zh.md)
+## 📋 Overview
 
-</div>
+Trading Assistant is a professional stock trading analysis system with technical indicators, trading signals, and position management. Supports A-shares, US stocks, and cryptocurrency markets.
 
----
+### Key Features
 
-## 📖 Introduction
-
-**OpenClaw Trading Assistant** is a complete trading decision support system that provides technical analysis, trading signals, position management, and risk monitoring.
-
-### ✨ Key Features
-
-- 📊 **Support & Resistance Levels** - Automatic calculation with multiple algorithms
-- 📈 **Trading Signals** - Multi-indicator analysis (RSI, MACD, Moving Averages)
-- 💰 **Position Calculator** - Risk-based position sizing
-- ⚠️ **Risk Management** - Stop-loss, take-profit, portfolio allocation
-- 🌍 **Multi-language** - English & Chinese support
-- 🔔 **Notifications** - Feishu, DingTalk, Email (configurable)
-
-### 🎯 Perfect For
-
-- Stock/ETF investors
-- Technical analysis enthusiasts
-- Quantitative trading beginners
-- OpenClaw users
+- 📊 **Technical Analysis** - Support/resistance levels, trend lines, chart patterns
+- 📈 **Trading Signals** - Buy/sell signals based on technical indicators
+- 💰 **Position Management** - Position sizing, cost basis analysis
+- 🔔 **Price Alerts** - Real-time monitoring and alerts
+- 📉 **Backtesting** - Strategy backtesting with detailed statistics
+- 🌍 **Multi-market** - A-shares, US stocks, cryptocurrency
+- 🌐 **Bilingual** - Chinese and English support
 
 ---
 
-## ✨ Features
+## 🚀 Installation
 
-### 1. Support & Resistance Levels
-
-- Automatic calculation of key price levels
-- Multiple algorithms: Previous High/Low, Moving Averages, Fibonacci, Pivot Points
-- Strength indicator (strong/medium/weak)
-
-**Example Output**:
-```
-NVDA Current Price: $175.64
-Resistance: $177.26 (+0.9%), $180.00 (+2.5%)
-Support: $175.00 (-0.4%), $171.72 (-2.2%)
-```
-
----
-
-### 2. Trading Signals
-
-- Multi-indicator analysis (RSI, MACD, Moving Averages)
-- Combined signal scoring
-- Recommendations: Strong Buy / Buy / Hold / Sell / Strong Sell
-
-**Example Output**:
-```
-RSI: 52.34 [Neutral]
-MACD: 0.1234 [Bullish]
-Moving Averages: [Bullish]
-Combined: Bullish (score: 3)
-Recommendation: BUY (Confidence: Medium)
-```
-
----
-
-### 3. Position Calculator
-
-- Risk-based position sizing
-- Risk profiles: Conservative / Moderate / Aggressive
-- Confidence adjustment
-- Stop-loss calculation
-- Portfolio allocation
-
-**Example Output**:
-```
-Total Capital: $100,000
-Entry Price: $175.64
-Stop Loss: $165.00
-Risk Profile: Moderate
-
-Position: 562 shares ($98,710, 98.7%)
-Risk: $5,964 (5.96%)
-Risk/Reward: 1:2.0
-```
-
----
-
-## 🛠️ Installation
-
-### Prerequisites
-
-- Python 3.11+
-- Twelve Data API Key ([Get Free](https://twelvedata.com/pricing) - 800 calls/day)
-- Alpha Vantage API Key ([Get Free](https://www.alphavantage.co/support/#api-key) - 25 calls/day)
-
-### Quick Start
+### Option 1: Python pip (Recommended)
 
 ```bash
-# 1. Clone repository
-git clone https://github.com/XuXuClassMate/trading-assistant.git
+# Download release
+wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v2.0.0/trading-assistant-v2.0.0-security.tar.gz
+
+# Extract
+tar -xzf trading-assistant-v2.0.0-security.tar.gz
 cd trading-assistant
 
-# 2. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure API Keys
-cp .env.example .env
-# Edit .env with your API Keys
+# Set environment variables
+export TWELVE_DATA_API_KEY=your_twelve_data_key
+export ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
 
-# 4. Configure Watchlist
-cp watchlist.txt.example watchlist.txt
-# Edit watchlist.txt with your stocks
-
-# 5. (Optional) Configure Notifications
-# Edit .env and fill in notification credentials (leave empty to disable)
-
-# 6. Test installation
-python3 support_resistance.py
-python3 trading_signals.py
-python3 position_calculator.py
+# Test installation
+python3 cli.py --help
 ```
 
----
-
-## 🌍 Internationalization
-
-**Default Language**: English (`en`)
-
-**Switch Language**:
+### Option 2: Docker
 
 ```bash
-# Method 1: Environment Variable
-export TRADING_ASSISTANT_LANG=zh_CN
+# Pull image
+docker pull ghcr.io/XuXuClassMate/trading-assistant:v2.0.0
 
-# Method 2: In Code
-from i18n import set_language
-set_language("zh_CN")
-
-# Method 3: Config File
-# Add to config.json: {"language": "zh_CN"}
+# Run with environment variables
+docker run -it \
+  -e TWELVE_DATA_API_KEY=your_key \
+  -e ALPHA_VANTAGE_API_KEY=your_key \
+  ghcr.io/XuXuClassMate/trading-assistant:v2.0.0
 ```
 
-**Supported Languages**:
-- English (`en`) - Default
-- Chinese Simplified (`zh_CN`)
+### Option 3: npm (if available)
 
-📚 [See I18N Documentation](docs/I18N.md)
+```bash
+npm install trading-assistant-v2.0.0.tgz
+```
+
+### Option 4: ClawHub (OpenClaw)
+
+```bash
+clawhub install trading-assistant@2.0.0
+```
 
 ---
 
 ## ⚙️ Configuration
 
-### Required
+### Environment Variables
 
-1. **API Keys** - Twelve Data & Alpha Vantage
-2. **Watchlist** - Your stock list
+**Required**:
+```bash
+export TWELVE_DATA_API_KEY=your_twelve_data_key
+export ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+```
 
-### Optional
+**Optional**:
+```bash
+export TZ=Asia/Shanghai  # Timezone
+export LANG=en_US.UTF-8  # Language (en or zh_CN)
+```
 
-1. **Notifications** - Feishu, DingTalk, Email (leave empty to disable)
-2. **Risk Profile** - Conservative/Moderate/Aggressive
-3. **Language** - English/Chinese
+### Getting API Keys
 
-📚 [See Full Configuration Guide](docs/CONFIGURATION.md)
+1. **Twelve Data**: https://twelvedata.com/pricing
+   - Free tier: 800 requests/day
+   
+2. **Alpha Vantage**: https://www.alphavantage.co/support/#api-key
+   - Free tier: 25 requests/day
 
 ---
 
 ## 📖 Usage
 
-### Basic Usage
+### CLI Commands
 
-```python
-# Support & Resistance
-from support_resistance import calculate_support_resistance
-result = calculate_support_resistance("NVDA")
+```bash
+# Start interactive mode
+python3 cli.py
 
-# Trading Signals
-from trading_signals import generate_trading_signal
-result = generate_trading_signal("AAPL")
+# Support/resistance analysis
+python3 support_resistance.py
 
-# Position Calculation
-from position_calculator import calculate_position_size
-result = calculate_position_size(
-    total_capital=100000,
-    entry_price=175.64,
-    stop_loss_price=165.00,
-    risk_profile="moderate"
-)
+# Trading signals
+python3 trading_signals.py
+
+# Position calculation
+python3 position_calculator.py
+
+# Backtesting
+python3 backtest_engine_v2.py
+
+# Real-time monitoring
+python3 realtime_monitor.py
+
+# Show help
+python3 cli.py --help
 ```
 
-📚 [See Full Usage Guide](README_CLAWHUB.md)
+### Interactive Mode
+
+```bash
+$ python3 cli.py
+
+Trading Assistant v2.0.0
+========================
+
+Available commands:
+  support-resistance  - Analyze support/resistance levels
+  signals            - Generate trading signals
+  position           - Calculate position size
+  backtest           - Strategy backtesting
+  monitor            - Real-time market monitoring
+  alerts             - Manage price alerts
+  ...
+
+trading-assistant> 
+```
+
+---
+
+## 🔒 Security Features (v2.0.0)
+
+### What Changed
+
+- ✅ Removed all `sys.path.insert()` calls
+- ✅ Removed runtime `.env` file loading
+- ✅ Removed `load_dotenv()` from config
+- ✅ Removed sibling module imports
+- ✅ API keys via environment variables only
+
+### Security Guarantees
+
+1. **No sibling .env access** - Only reads from standard environment variables
+2. **No path manipulation** - Zero `sys.path.insert()` calls
+3. **No runtime .env loading** - No automatic .env file parsing
+4. **Isolated imports** - Standard Python imports only
+5. **Direct API calls** - Only Twelve Data and Alpha Vantage endpoints
 
 ---
 
@@ -206,22 +173,20 @@ result = calculate_position_size(
 
 ```
 trading-assistant/
-├── config.py                    # Configuration
-├── i18n.py                      # Internationalization
-├── support_resistance.py        # Support/Resistance
-├── trading_signals.py           # Trading Signals
-├── position_calculator.py       # Position Calculator
+├── cli.py                      # Command-line interface
+├── config.py                   # Configuration management
+├── i18n.py                     # Internationalization
 ├── locales/
-│   ├── en.json                  # English translations
-│   └── zh_CN.json               # Chinese translations
-├── docs/
-│   ├── I18N.md                  # i18n documentation
-│   └── CONFIGURATION.md         # Configuration guide
-├── requirements.txt             # Dependencies
-├── .env.example                 # Environment template
-├── watchlist.txt.example        # Watchlist template
-├── LICENSE                      # MIT License
-└── README.md                    # This file (English)
+│   ├── en.json                 # English translations
+│   └── zh_CN.json              # Chinese translations
+├── support_resistance.py       # Support/resistance analysis
+├── trading_signals.py          # Signal generation
+├── position_calculator.py      # Position sizing
+├── backtest_engine_v2.py       # Backtesting engine
+├── realtime_monitor.py         # Real-time monitoring
+├── requirements.txt            # Python dependencies
+├── pyproject.toml              # Python project metadata
+└── README.md                   # This file
 ```
 
 ---
@@ -229,86 +194,100 @@ trading-assistant/
 ## 🧪 Testing
 
 ```bash
-# Test all modules
-python3 support_resistance.py
-python3 trading_signals.py
-python3 position_calculator.py
+# Run tests
+pytest tests/
 
-# Run unit tests
-python3 -m pytest tests/
+# Test specific module
+python3 -m pytest tests/test_trading_signals.py -v
+
+# Check code style
+flake8 .
+black --check .
 ```
 
 ---
 
-## 📊 Version History
+## 📊 Supported Markets
 
-### v1.0.0 (2026-03-24) - Initial Release
+### A-Shares (China)
+- Shanghai Stock Exchange (SSE)
+- Shenzhen Stock Exchange (SZSE)
+- Data source: Sina Finance
 
-**Features**:
-- ✅ Support & Resistance calculation
-- ✅ Trading signal generation (RSI, MACD, MA)
-- ✅ Position size calculator
-- ✅ Multi-language support (EN/ZH)
-- ✅ Configurable notifications
-- ✅ Portfolio allocation
+### US Stocks
+- NYSE, NASDAQ
+- Data source: Twelve Data, Alpha Vantage
 
-📚 [See Full Release Notes](CHANGELOG.md)
-
----
-
-## ⚠️ Disclaimer
-
-This software is for **educational and research purposes only**. It does not constitute investment advice.
-
-- Trading involves substantial risk
-- Past performance does not guarantee future results
-- Users should make independent decisions and bear their own risks
-- The developers are not liable for any investment losses
+### Cryptocurrency
+- Bitcoin, Ethereum, etc.
+- Data source: Binance, CoinGecko
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
-## 📚 Documentation
+## 📝 Changelog
 
-- [📖 README_CLAWHUB.md](README_CLAWHUB.md) - Detailed guide
-- [🌍 docs/I18N.md](docs/I18N.md) - Internationalization guide
-- [⚙️ docs/CONFIGURATION.md](docs/CONFIGURATION.md) - Configuration guide
-- [📝 CHANGELOG.md](CHANGELOG.md) - Version history
-- [❓ FAQ.md](FAQ.md) - Frequently asked questions
+### v2.0.0 (2026-04-01) - Security Hardened
+
+**Security Fixes**:
+- Removed all `sys.path.insert()` calls (9 files)
+- Removed runtime `.env` file loading (4 files)
+- Removed `load_dotenv()` from `config.py`
+- Removed sibling module imports
+- Updated SKILL.md security model
+
+**Breaking Changes**:
+- API keys must be set via environment variables (no `.env` file loading)
+- Removed `python-dotenv` dependency
+
+### v1.3.1 (2026-03-28)
+
+- Bug fixes and improvements
+
+---
+
+## ⚠️ Disclaimer
+
+This software is for **educational and research purposes only**.
+
+- ❌ Not financial advice
+- ❌ Not recommended for actual trading
+- ❌ Use at your own risk
+- ✅ Past performance does not guarantee future results
+
+---
+
+## 📞 Support
+
+- **GitHub Issues**: https://github.com/XuXuClassMate/trading-assistant/issues
+- **Email**: mail@xuxuclassmate.com
+- **Documentation**: https://github.com/XuXuClassMate/trading-assistant#readme
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
 ## 🙏 Acknowledgments
 
-Thanks to these open-source projects:
-
-- **OpenClaw** - AI assistant framework
-- **Twelve Data** - Financial market data API
-- **Alpha Vantage** - Stock/Forex data API
-- **ClawHub** - OpenClaw skills community
+- [Twelve Data](https://twelvedata.com/) - Market data API
+- [Alpha Vantage](https://www.alphavantage.co/) - Stock market API
+- [OpenClaw](https://openclaw.ai/) - AI agent framework
 
 ---
 
-## 📬 Contact
-
-- **GitHub**: https://github.com/XuXuClassMate/trading-assistant
-- **Issues**: https://github.com/XuXuClassMate/trading-assistant/issues
-- **ClawHub**: https://clawhub.com
-
----
-
-<div align="center">
-
-**Made with ❤️ by OpenClaw Community**
-
-[📖 Documentation](#-documentation) • [🐛 Report Issue](https://github.com/XuXuClassMate/trading-assistant/issues) • [⭐ Star Project](https://github.com/XuXuClassMate/trading-assistant)
-
-*Last Updated*: 2026-03-24  
-*Version*: v1.0.0
-
-</div>
+**Author**: XuXuClassMate  
+**Version**: 2.0.0  
+**Last Updated**: 2026-04-01

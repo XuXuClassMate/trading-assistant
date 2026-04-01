@@ -9,6 +9,10 @@ permissions:
   contents: write
   packages: write
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -24,6 +28,14 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Get version from tag
         id: get_version
         run: |
@@ -31,7 +43,89 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "📦 Building version: $VERSION"
 
-      - name: Create tarball
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      # ========================================
+      # Python pip package
+      # ========================================
+      - name: Build Python package (pip)
+        run: |
+          echo "🐍 Building Python package..."
+          pip install build wheel
+          python -m build
+          echo "✅ Python package built"
+          ls -lh dist/
+
+      # ========================================
+      # npm package (if package.json exists)
+      # ========================================
+      - name: Check for package.json
+        id: check_npm
+        run: |
+          if [ -f package.json ]; then
+            echo "has_npm=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_npm=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build npm package
+        if: steps.check_npm.outputs.has_npm == 'true'
+        run: |
+          echo "📦 Building npm package..."
+          npm install
+          npm pack
+          echo "✅ npm package built"
+          ls -lh *.tgz
+
+      # ========================================
+      # Docker image
+      # ========================================
+      - name: Check for Dockerfile
+        id: check_docker
+        run: |
+          if [ -f Dockerfile ]; then
+            echo "has_docker=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_docker=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Log in to Container Registry
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        if: steps.check_docker.outputs.has_docker == 'true'
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+
+      - name: Build and push Docker image
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # ========================================
+      # Source tarball (for ClawHub)
+      # ========================================
+      - name: Create source tarball
         run: |
           echo "📦 Creating trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
           tar -czf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz \
@@ -61,37 +155,69 @@ jobs:
             --exclude='PUSH_COMPLETE.md' \
             --exclude='GITHUB_RELEASE_INSTRUCTIONS.md' \
             --exclude='create_upload_tarball.sh' \
+            --exclude='GITHUB_ACTIONS_SETUP.md' \
+            --exclude='GITHUB_ACTIONS_MULTI_BUILD.md' \
             .
           
-          echo "✅ Tarball created"
+          echo "✅ Source tarball created"
           ls -lh trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
 
-      - name: Verify tarball
+      - name: Verify tarball contents
         run: |
-          echo "🔍 Verifying tarball contents..."
-          tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | head -20
-          echo "..."
+          echo "🔍 Verifying tarball includes i18n files..."
+          tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | grep -E "i18n|locales" || echo "⚠️ Warning: No i18n files found"
+          echo ""
           echo "📊 Total files: $(tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | wc -l)"
 
+      # ========================================
+      # Generate release notes
+      # ========================================
       - name: Generate release notes
         id: release_notes
         run: |
           cat > release_notes.md << 'EOF'
-          ## 🔒 安全加固版本
+          ## 🔒 安全加固版本 Security Hardened Release
 
-          ### 安全修复
-          - ✅ 移除所有 sys.path.insert() 调用 (9 个文件)
-          - ✅ 移除运行时.env 文件加载 (4 个文件)
+          ### 安全修复 Security Fixes
+          - ✅ 移除所有 sys.path.insert() 调用 (9 files)
+          - ✅ 移除运行时.env 文件加载 (4 files)
           - ✅ 从 config.py 移除 load_dotenv()
-          - ✅ 移除兄弟模块导入 (optimizer, advanced_indicators 等)
+          - ✅ 移除兄弟模块导入 (optimizer, advanced_indicators, etc.)
           - ✅ 更新 SKILL.md 安全模型和作者信息
 
-          ### 审计状态
-          - ✅ READS_SIBLING_ENV_FILE - 已修复
-          - ✅ IMPORTS_SIBLING_TRADINGAGENTS - 已修复
-          - ✅ LOADS_LOCAL_.ENV_TO_ENVVARS - 已修复
+          ### 审计状态 Audit Status
+          - ✅ READS_SIBLING_ENV_FILE - Fixed
+          - ✅ IMPORTS_SIBLING_TRADINGAGENTS - Fixed
+          - ✅ LOADS_LOCAL_.ENV_TO_ENVVARS - Fixed
 
-          ### ⚠️ 破坏性变更
+          ### 📦 安装方式 Installation
+
+          #### Python pip (推荐 Recommended)
+          ```bash
+          # Download
+          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}.tar.gz
+
+          # Install
+          pip install trading-assistant-v${{ steps.get_version.outputs.version }}.tar.gz
+          ```
+
+          #### npm (if available)
+          ```bash
+          npm install trading-assistant-v${{ steps.get_version.outputs.version }}.tgz
+          ```
+
+          #### Docker (if available)
+          ```bash
+          docker pull ghcr.io/XuXuClassMate/trading-assistant:v${{ steps.get_version.outputs.version }}
+          docker run -e TWELVE_DATA_API_KEY=your_key -e ALPHA_VANTAGE_API_KEY=your_key ghcr.io/XuXuClassMate/trading-assistant:v${{ steps.get_version.outputs.version }}
+          ```
+
+          #### ClawHub (OpenClaw)
+          ```bash
+          clawhub install trading-assistant@${{ steps.get_version.outputs.version }}
+          ```
+
+          ### ⚠️ 破坏性变更 Breaking Changes
           - API 密钥必须通过环境变量设置 (不再支持.env 文件)
             ```bash
             export TWELVE_DATA_API_KEY=your_key
@@ -99,55 +225,39 @@ jobs:
             ```
           - 移除 python-dotenv 依赖
 
-          ### 📦 安装
+          ### 📝 文档 Documentation
+          - SECURITY_FIXES_v2.0.0.md - 详细修复日志 Detailed fixes
+          - SECURITY_FIX_SUMMARY.md - 执行摘要 Executive summary
+          - UPLOAD_INSTRUCTIONS_v2.0.0.md - 上传说明 Upload instructions
+          - 修复完成报告.md - 中文报告 Chinese report
+          - README_en.md - English documentation
+          - README.md - 中文文档
 
-          #### 通过 ClawHub (推荐)
-          ```bash
-          clawhub install trading-assistant@2.0.0
-          ```
-
-          #### 手动安装
-          ```bash
-          # 下载 tarball
-          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
-
-          # 解压安装
-          tar -xzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
-          cd trading-assistant
-          pip install -r requirements.txt
-
-          # 设置环境变量
-          export TWELVE_DATA_API_KEY=your_key
-          export ALPHA_VANTAGE_API_KEY=your_key
-
-          # 测试
-          python3 cli.py --help
-          ```
-
-          ### 📝 文档
-          - SECURITY_FIXES_v2.0.0.md - 详细修复日志
-          - SECURITY_FIX_SUMMARY.md - 执行摘要
-          - UPLOAD_INSTRUCTIONS_v2.0.0.md - 上传说明
-          - 修复完成报告.md - 中文报告
-
-          ### 🔗 链接
+          ### 🔗 链接 Links
           - GitHub: https://github.com/XuXuClassMate/trading-assistant
           - ClawHub: https://clawhub.com/skills/trading-assistant
-          - 问题反馈：https://github.com/XuXuClassMate/trading-assistant/issues
+          - Issues: https://github.com/XuXuClassMate/trading-assistant/issues
+          - Docker: https://github.com/XuXuClassMate/trading-assistant/pkgs/container/trading-assistant
 
           ---
 
-          **作者**: XuXuClassMate  
-          **许可证**: MIT  
-          **更新时间**: $(date +%Y-%m-%d)
+          **作者 Author**: XuXuClassMate  
+          **许可证 License**: MIT  
+          **更新时间 Updated**: $(date +%Y-%m-%d)
           EOF
 
+      # ========================================
+      # Create GitHub Release
+      # ========================================
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: v${{ steps.get_version.outputs.version }} - Security Hardened
           body_path: release_notes.md
           files: |
+            dist/*.tar.gz
+            dist/*.whl
+            *.tgz
             trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
           draft: false
           prerelease: false
@@ -162,7 +272,12 @@ jobs:
           echo ""
           echo "📦 Release Details:"
           echo "   Version: v${{ steps.get_version.outputs.version }}"
-          echo "   File: trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
           echo "   URL: https://github.com/XuXuClassMate/trading-assistant/releases/tag/v${{ steps.get_version.outputs.version }}"
           echo ""
-          echo "🎉 GitHub Actions build and upload complete!"
+          echo "📦 Available Assets:"
+          echo "   - Python pip: *.tar.gz, *.whl (in dist/)"
+          echo "   - npm: *.tgz (if package.json exists)"
+          echo "   - Source: trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
+          echo "   - Docker: ghcr.io/XuXuClassMate/trading-assistant:v${{ steps.get_version.outputs.version }} (if Dockerfile exists)"
+          echo ""
+          echo "🎉 GitHub Actions multi-build complete!"
