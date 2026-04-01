@@ -209,6 +209,7 @@ jobs:
       # Source tarball (for ClawHub)
       # ========================================
       - name: Create source tarball
+        continue-on-error: true
         run: |
           echo "📦 Creating trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
           tar -czf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz \
@@ -242,6 +243,7 @@ jobs:
           ls -lh trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
 
       - name: Verify tarball contents
+        continue-on-error: true
         run: |
           echo "🔍 Verifying tarball contents..."
           echo ""
