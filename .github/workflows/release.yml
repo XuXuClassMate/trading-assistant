@@ -176,6 +176,7 @@ jobs:
       # ========================================
       - name: Log in to Docker Hub
         if: steps.check_docker.outputs.has_docker == 'true'
+        continue-on-error: true
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -183,6 +184,7 @@ jobs:
 
       - name: Extract Docker Hub metadata
         if: steps.check_docker.outputs.has_docker == 'true'
+        continue-on-error: true
         id: dockerhub_meta
         uses: docker/metadata-action@v5
         with:
@@ -195,6 +197,7 @@ jobs:
 
       - name: Build and push Docker image to Docker Hub
         if: steps.check_docker.outputs.has_docker == 'true'
+        continue-on-error: true
         uses: docker/build-push-action@v5
         with:
           context: .
