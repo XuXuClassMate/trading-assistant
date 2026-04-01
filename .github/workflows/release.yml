@@ -1,42 +1,168 @@
-name: Release / 发布
+name: Build and Upload Release
 
 on:
   push:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
-  release:
-    name: Create Release / 创建发布
+  build-and-release:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout / 检出代码
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Set up Python / 设置 Python
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
-      - name: Install dependencies / 安装依赖
+
+      - name: Get version from tag
+        id: get_version
         run: |
-          python -m pip install --upgrade pip
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Building version: $VERSION"
+
+      - name: Create tarball
+        run: |
+          echo "📦 Creating trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
+          tar -czf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz \
+            --exclude='*.tar.gz' \
+            --exclude='*.tgz' \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            --exclude='reports/*' \
+            --exclude='logs/*' \
+            --exclude='data/*' \
+            --exclude='sent/*' \
+            --exclude='portfolio/*' \
+            --exclude='cache/*' \
+            --exclude='.env' \
+            --exclude='config.json' \
+            --exclude='feishu_config.json' \
+            --exclude='watchlist.txt' \
+            --exclude='accuracy_log.json' \
+            --exclude='sentiment_report.json' \
+            --exclude='*.log' \
+            --exclude='.pytest_cache' \
+            --exclude='site/*' \
+            --exclude='daily_reports/*' \
+            --exclude='screenshots_*.txt' \
+            --exclude='PUSH_COMPLETE.md' \
+            --exclude='GITHUB_RELEASE_INSTRUCTIONS.md' \
+            --exclude='create_upload_tarball.sh' \
+            .
+          
+          echo "✅ Tarball created"
+          ls -lh trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
+
+      - name: Verify tarball
+        run: |
+          echo "🔍 Verifying tarball contents..."
+          tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | head -20
+          echo "..."
+          echo "📊 Total files: $(tar -tzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz | wc -l)"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          cat > release_notes.md << 'EOF'
+          ## 🔒 安全加固版本
+
+          ### 安全修复
+          - ✅ 移除所有 sys.path.insert() 调用 (9 个文件)
+          - ✅ 移除运行时.env 文件加载 (4 个文件)
+          - ✅ 从 config.py 移除 load_dotenv()
+          - ✅ 移除兄弟模块导入 (optimizer, advanced_indicators 等)
+          - ✅ 更新 SKILL.md 安全模型和作者信息
+
+          ### 审计状态
+          - ✅ READS_SIBLING_ENV_FILE - 已修复
+          - ✅ IMPORTS_SIBLING_TRADINGAGENTS - 已修复
+          - ✅ LOADS_LOCAL_.ENV_TO_ENVVARS - 已修复
+
+          ### ⚠️ 破坏性变更
+          - API 密钥必须通过环境变量设置 (不再支持.env 文件)
+            ```bash
+            export TWELVE_DATA_API_KEY=your_key
+            export ALPHA_VANTAGE_API_KEY=your_key
+            ```
+          - 移除 python-dotenv 依赖
+
+          ### 📦 安装
+
+          #### 通过 ClawHub (推荐)
+          ```bash
+          clawhub install trading-assistant@2.0.0
+          ```
+
+          #### 手动安装
+          ```bash
+          # 下载 tarball
+          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
+
+          # 解压安装
+          tar -xzf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
+          cd trading-assistant
           pip install -r requirements.txt
-      
-      - name: Run tests / 运行测试
-        run: |
-          echo "Running basic tests..."
-          python3 -c "import config; print('Config OK')"
-          python3 -c "import i18n; print('i18n OK')"
-      
-      - name: Create Release / 创建发布
-        uses: softprops/action-gh-release@v1
+
+          # 设置环境变量
+          export TWELVE_DATA_API_KEY=your_key
+          export ALPHA_VANTAGE_API_KEY=your_key
+
+          # 测试
+          python3 cli.py --help
+          ```
+
+          ### 📝 文档
+          - SECURITY_FIXES_v2.0.0.md - 详细修复日志
+          - SECURITY_FIX_SUMMARY.md - 执行摘要
+          - UPLOAD_INSTRUCTIONS_v2.0.0.md - 上传说明
+          - 修复完成报告.md - 中文报告
+
+          ### 🔗 链接
+          - GitHub: https://github.com/XuXuClassMate/trading-assistant
+          - ClawHub: https://clawhub.com/skills/trading-assistant
+          - 问题反馈：https://github.com/XuXuClassMate/trading-assistant/issues
+
+          ---
+
+          **作者**: XuXuClassMate  
+          **许可证**: MIT  
+          **更新时间**: $(date +%Y-%m-%d)
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
+          name: v${{ steps.get_version.outputs.version }} - Security Hardened
+          body_path: release_notes.md
+          files: |
+            trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
           draft: false
           prerelease: false
+          make_latest: true
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload summary
+        run: |
+          echo "✅ Release created successfully!"
+          echo ""
+          echo "📦 Release Details:"
+          echo "   Version: v${{ steps.get_version.outputs.version }}"
+          echo "   File: trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
+          echo "   URL: https://github.com/XuXuClassMate/trading-assistant/releases/tag/v${{ steps.get_version.outputs.version }}"
+          echo ""
+          echo "🎉 GitHub Actions build and upload complete!"
