@@ -150,9 +150,9 @@ docker run --rm -it \
 ```
 
 **Available Images**:
-- `ghcr.io/xuxuclassmate/trading-assistant:1.2.0` - Specific version
+- `ghcr.io/xuxuclassmate/trading-assistant:2.0.0` - Specific version
 - `ghcr.io/xuxuclassmate/trading-assistant:latest` - Latest stable
-- `xuxuclassmate/trading-assistant:1.2.0` - Docker Hub (versioned)
+- `xuxuclassmate/trading-assistant:2.0.0` - Docker Hub (versioned)
 - `xuxuclassmate/trading-assistant:latest` - Docker Hub (latest)
 
 **Supported Platforms**: linux/amd64, linux/arm64
@@ -192,7 +192,7 @@ $ ta
 
 ============================================================
   OpenClaw Trading Assistant CLI
-  Version: 1.3.0
+  Version: 2.0.0
 ============================================================
 
 ta> help
