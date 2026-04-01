@@ -1,4 +1,4 @@
-name: Build and Upload Release
+name: Build and Upload to All Repositories
 
 on:
   push:
@@ -7,6 +7,11 @@ on:
 
 permissions:
   contents: write
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-release:
@@ -27,6 +32,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Get version from tag
         id: get_version
@@ -43,18 +52,32 @@ jobs:
           fi
 
       # ========================================
-      # Python pip package
+      # Python pip package (PyPI)
       # ========================================
-      - name: Build Python package (pip)
+      - name: Build Python package
         run: |
-          echo "🐍 Building Python package..."
+          echo "🐍 Building Python package for PyPI..."
           pip install build wheel
           python -m build
           echo "✅ Python package built"
           ls -lh dist/
 
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          echo "📤 Publishing to PyPI..."
+          pip install twine
+          if [ -n "$PYPI_API_TOKEN" ]; then
+            twine upload dist/* -u __token__ -p "$PYPI_API_TOKEN"
+            echo "✅ Published to PyPI"
+          else
+            echo "⚠️ PyPI API token not configured, skipping upload"
+          fi
+
       # ========================================
-      # npm package (if package.json exists)
+      # npm package
       # ========================================
       - name: Check for package.json
         id: check_npm
@@ -74,42 +97,125 @@ jobs:
           echo "✅ npm package built"
           ls -lh *.tgz
 
+      - name: Publish to npm
+        if: steps.check_npm.outputs.has_npm == 'true' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "📤 Publishing to npm..."
+          if [ -n "$NODE_AUTH_TOKEN" ]; then
+            npm publish *.tgz --access public
+            echo "✅ Published to npm"
+          else
+            echo "⚠️ npm token not configured, skipping upload"
+          fi
+
+      # ========================================
+      # Docker image (GitHub Container Registry)
+      # ========================================
+      - name: Check for Dockerfile
+        id: check_docker
+        run: |
+          if [ -f Dockerfile ]; then
+            echo "has_docker=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_docker=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Log in to GitHub Container Registry
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        if: steps.check_docker.outputs.has_docker == 'true'
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+
+      - name: Build and push Docker image to GHCR
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # ========================================
+      # Docker Hub (optional)
+      # ========================================
+      - name: Log in to Docker Hub
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Docker Hub metadata
+        if: steps.check_docker.outputs.has_docker == 'true'
+        id: dockerhub_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: xuxuclassmate/trading-assistant
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image to Docker Hub
+        if: steps.check_docker.outputs.has_docker == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.dockerhub_meta.outputs.tags }}
+          labels: ${{ steps.dockerhub_meta.outputs.labels }}
+
       # ========================================
       # Source tarball (for ClawHub)
       # ========================================
       - name: Create source tarball
         run: |
           echo "📦 Creating trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
-          
-          # 创建临时目录
-          TEMP_DIR=$(mktemp -d)
-          
-          # 复制必要文件
-          cp -r . "${TEMP_DIR}/src"
-          
-          # 删除不需要的文件
-          cd "${TEMP_DIR}/src"
-          rm -rf .git .github __pycache__ node_modules .pytest_cache
-          rm -rf reports logs data sent portfolio cache site daily_reports
-          rm -f .env config.json feishu_config.json watchlist.txt
-          rm -f *.log *.tar.gz *.tgz
-          rm -f accuracy_log.json sentiment_report.json
-          rm -f screenshots_*.txt
-          rm -f PUSH_COMPLETE.md GITHUB_RELEASE_INSTRUCTIONS.md
-          rm -f create_upload_tarball.sh
-          rm -f GITHUB_ACTIONS_SETUP.md GITHUB_ACTIONS_MULTI_BUILD.md
-          rm -f CLAWHUB_UPLOAD_READY.md REBUILD_NOTES.md RE_PUSH_COMPLETE.md
-          rm -f build_clawhub.sh
-          
-          # 打包
-          cd "${TEMP_DIR}"
-          tar -czf "${{ github.workspace }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz" src
-          
-          # 清理
-          rm -rf "${TEMP_DIR}"
+          tar -czf trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz \
+            --exclude='*.tar.gz' \
+            --exclude='*.tgz' \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            --exclude='reports' \
+            --exclude='logs' \
+            --exclude='data' \
+            --exclude='sent' \
+            --exclude='portfolio' \
+            --exclude='cache' \
+            --exclude='.env' \
+            --exclude='config.json' \
+            --exclude='feishu_config.json' \
+            --exclude='watchlist.txt' \
+            --exclude='accuracy_log.json' \
+            --exclude='sentiment_report.json' \
+            --exclude='*.log' \
+            --exclude='.pytest_cache' \
+            --exclude='site' \
+            --exclude='daily_reports' \
+            --exclude='screenshots_*.txt' \
+            .
           
           echo "✅ Source tarball created"
-          ls -lh "${{ github.workspace }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
+          ls -lh trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
 
       - name: Verify tarball contents
         run: |
@@ -141,25 +247,33 @@ jobs:
           - ✅ 移除兄弟模块导入 (optimizer, advanced_indicators, etc.)
           - ✅ 更新 SKILL.md 安全模型和作者信息
 
-          ### 审计状态 Audit Status
-          - ✅ READS_SIBLING_ENV_FILE - Fixed
-          - ✅ IMPORTS_SIBLING_TRADINGAGENTS - Fixed
-          - ✅ LOADS_LOCAL_.ENV_TO_ENVVARS - Fixed
+          ### ClawHub 审查问题修复
+          - ✅ 修复依赖声明 (明确使用 requests 库)
+          - ✅ 修复.env 配置说明 (不自动加载)
+          - ✅ 添加 get_api_key() 兼容函数
+          - ✅ 添加 FEISHU_WEBHOOK_URL 到 requires.env
 
           ### 📦 安装方式 Installation
 
-          #### Python pip (推荐 Recommended)
+          #### Python pip (PyPI)
           ```bash
-          # Download
-          wget https://github.com/XuXuClassMate/trading-assistant/releases/download/v${{ steps.get_version.outputs.version }}/trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
-
-          # Install
-          pip install trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz
+          pip install trading-assistant==${{ steps.get_version.outputs.version }}
           ```
 
-          #### npm (if available)
+          #### npm
           ```bash
-          npm install trading-assistant-v${{ steps.get_version.outputs.version }}.tgz
+          npm install trading-assistant@${{ steps.get_version.outputs.version }}
+          ```
+
+          #### Docker
+          ```bash
+          docker pull ghcr.io/XuXuClassMate/trading-assistant:${{ steps.get_version.outputs.version }}
+          docker run -e TWELVE_DATA_API_KEY=your_key -e ALPHA_VANTAGE_API_KEY=your_key ghcr.io/XuXuClassMate/trading-assistant:${{ steps.get_version.outputs.version }}
+          ```
+
+          #### Docker Hub
+          ```bash
+          docker pull xuxuclassmate/trading-assistant:${{ steps.get_version.outputs.version }}
           ```
 
           #### ClawHub (OpenClaw)
@@ -178,15 +292,16 @@ jobs:
           ### 📝 文档 Documentation
           - SECURITY_FIXES_v2.0.0.md - 详细修复日志 Detailed fixes
           - SECURITY_FIX_SUMMARY.md - 执行摘要 Executive summary
-          - UPLOAD_INSTRUCTIONS_v2.0.0.md - 上传说明 Upload instructions
-          - 修复完成报告.md - 中文报告 Chinese report
           - README_en.md - English documentation
           - README.md - 中文文档
 
           ### 🔗 链接 Links
           - GitHub: https://github.com/XuXuClassMate/trading-assistant
+          - PyPI: https://pypi.org/project/trading-assistant
+          - npm: https://www.npmjs.com/package/trading-assistant
+          - Docker Hub: https://hub.docker.com/r/xuxuclassmate/trading-assistant
+          - GHCR: https://github.com/XuXuClassMate/trading-assistant/pkgs/container/trading-assistant
           - ClawHub: https://clawhub.com/skills/trading-assistant
-          - Issues: https://github.com/XuXuClassMate/trading-assistant/issues
 
           ---
 
@@ -225,7 +340,9 @@ jobs:
           echo ""
           echo "📦 Available Assets:"
           echo "   - Python pip: *.tar.gz, *.whl (in dist/)"
-          echo "   - npm: *.tgz (if package.json exists)"
+          echo "   - npm: *.tgz"
           echo "   - Source: trading-assistant-v${{ steps.get_version.outputs.version }}-security.tar.gz"
+          echo "   - Docker: ghcr.io/XuXuClassMate/trading-assistant:v${{ steps.get_version.outputs.version }}"
+          echo "   - Docker Hub: xuxuclassmate/trading-assistant:v${{ steps.get_version.outputs.version }}"
           echo ""
-          echo "🎉 GitHub Actions build complete!"
+          echo "🎉 Multi-repository release complete!"
