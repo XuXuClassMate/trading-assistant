@@ -153,6 +153,25 @@ def get_api_keys():
     
     return keys
 
+def get_api_key(provider):
+    """获取单个 API Key (兼容函数)
+    
+    Args:
+        provider: API 提供商名称 ('twelve_data', 'TWELVE_DATA', 'alpha_vantage', 'ALPHA_VANTAGE')
+    
+    Returns:
+        str: API Key 或 None
+    """
+    provider = provider.upper()
+    
+    if provider in ["TWELVE_DATA", "TWELVE"]:
+        return os.environ.get("TWELVE_DATA_API_KEY")
+    elif provider in ["ALPHA_VANTAGE", "ALPHA", "AV"]:
+        return os.environ.get("ALPHA_VANTAGE_API_KEY")
+    else:
+        # 尝试直接匹配
+        return os.environ.get(f"{provider}_API_KEY")
+
 # 初始化配置
 config = load_config()
 

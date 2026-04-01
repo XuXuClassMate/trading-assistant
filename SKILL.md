@@ -18,6 +18,7 @@ metadata:
       env:
         - TWELVE_DATA_API_KEY
         - ALPHA_VANTAGE_API_KEY
+        - FEISHU_WEBHOOK_URL  # Optional: for push notifications
       bins:
         - python3
         - pip
@@ -33,14 +34,18 @@ metadata:
 Advanced trading analysis system providing technical indicators, trading signals, and position management for stock and crypto investors.
 
 **Security Improvements in v2.0.0:**
-- ✅ No external package dependencies (removed TradingAgents imports)
-- ✅ No reading of sibling/parent .env files
+- ✅ Removed TradingAgents and other heavy external dependencies
+- ✅ No reading of sibling/parent `.env` files
 - ✅ Direct API calls to Twelve Data and Alpha Vantage only
-- ✅ All API keys loaded from standard environment variables only
+- ✅ All API keys loaded from environment variables only (not from `.env` files at runtime)
 - ✅ No access to files outside the project directory
 - ✅ Removed all `sys.path.insert()` calls to prevent sibling directory imports
 - ✅ Removed runtime `.env` file loading (daily_report.py, news_sentiment_monitor.py)
-- ✅ Removed `load_dotenv()` from config.py to prevent automatic .env scanning
+- ✅ Removed `load_dotenv()` from config.py to prevent automatic `.env` scanning
+
+**Dependencies:**
+- `requests` - HTTP client for API calls (installed via requirements.txt)
+- Standard Python libraries: `json`, `os`, `datetime`, `argparse`, etc.
 
 ---
 
@@ -67,16 +72,29 @@ pip install -r requirements.txt
 
 ### 2. Configure API Keys
 
-Create `.env` file in the project directory:
+**Important**: This version does NOT load `.env` files at runtime. You must set environment variables directly:
 
+**Option A: Export in shell (recommended)**
 ```bash
-TWELVE_DATA_API_KEY=your_twelve_data_key
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+export TWELVE_DATA_API_KEY=your_twelve_data_key
+export ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+```
+
+**Option B: Set in shell profile (~/.bashrc or ~/.zshrc)**
+```bash
+echo 'export TWELVE_DATA_API_KEY=your_key' >> ~/.bashrc
+echo 'export ALPHA_VANTAGE_API_KEY=your_key' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Option C: Use with command**
+```bash
+TWELVE_DATA_API_KEY=your_key ALPHA_VANTAGE_API_KEY=your_key python3 trading_signals.py
 ```
 
 Get free API keys:
-- **Twelve Data**: https://twelvedata.com (800 calls/day)
-- **Alpha Vantage**: https://www.alphavantage.co (25 calls/day)
+- **Twelve Data**: https://twelvedata.com (800 calls/day, free tier)
+- **Alpha Vantage**: https://www.alphavantage.co (25 calls/day, free tier)
 
 ### 3. Test Installation
 
@@ -143,10 +161,11 @@ trading-assistant/
 
 ### What This Skill Does:
 - ✅ Reads API keys from **standard environment variables** only (`TWELVE_DATA_API_KEY`, `ALPHA_VANTAGE_API_KEY`)
-- ✅ Makes HTTP requests to **Twelve Data** and **Alpha Vantage** APIs only
+- ✅ Makes HTTP requests to **Twelve Data** and **Alpha Vantage** APIs only (using `requests` library)
 - ✅ Writes logs and reports to **its own directory** (`logs/`, `reports/`, `data/`)
 - ✅ Reads user-configured `watchlist.txt` and `config.json` from its own directory
-- ✅ Uses direct API calls with no external package dependencies
+- ✅ Optional: Sends push notifications to Feishu if `FEISHU_WEBHOOK_URL` is configured
+- ✅ Uses lightweight dependencies: `requests` for HTTP calls
 
 ### What This Skill Does NOT Do:
 - ❌ Does NOT read `.env` files at runtime (removed from daily_report.py, news_sentiment_monitor.py, config.py)
