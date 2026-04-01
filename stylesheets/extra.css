@@ -1,0 +1,253 @@
+/* Custom styles for Trading Assistant Documentation */
+
+/* Smooth animations */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hero section animation */
+.md-main__inner {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Code block hover effect */
+.md-typeset pre:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Card hover effects */
+.md-typeset .grid:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Button animations */
+.md-typeset .md-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Admonition improvements */
+.md-typeset .admonition {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.md-typeset .admonition:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--md-default-bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-primary-fg-color--light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-primary-fg-color);
+}
+
+/* Feature cards */
+.feature-card {
+  background: var(--md-default-bg-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+}
+
+/* Command examples */
+.command-example {
+  background: var(--md-code-bg-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  border-left: 4px solid var(--md-primary-fg-color);
+}
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin: 4px 8px 4px 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.badge-success {
+  background: #10b981;
+  color: white;
+}
+
+.badge-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.badge-info {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-primary {
+  background: #6366f1;
+  color: white;
+}
+
+/* Community Stats */
+.community-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--md-default-bg-color--lightest);
+  border-radius: 8px;
+  border-left: 4px solid var(--md-primary-fg-color);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateX(4px);
+  background: var(--md-default-bg-color--lighter);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.stat-number {
+  font-size: 1.5em;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+}
+
+.stat-label {
+  flex: 1;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+}
+
+.stat-link {
+  color: var(--md-primary-fg-color);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.1);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.stat-link:hover {
+  background: var(--md-primary-fg-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Stat badges container */
+.stat-badges {
+  margin: 16px 0;
+}
+
+.stat-badges .badge {
+  display: block;
+  margin: 8px 0;
+  text-align: center;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  background: var(--md-default-bg-color);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.lang-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lang-btn:hover {
+  background: var(--md-primary-fg-color--light);
+  color: var(--md-primary-fg-color);
+}
+
+.lang-btn.active {
+  background: var(--md-primary-fg-color);
+  color: white;
+  border-color: var(--md-primary-fg-color);
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+  .lang-switcher {
+    top: 10px;
+    right: 10px;
+    padding: 6px;
+  }
+  
+  .lang-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
