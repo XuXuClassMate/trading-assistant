@@ -19,11 +19,9 @@ from typing import Dict, List, Optional
 import urllib.request
 import urllib.error
 
-# 加载父目录
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from config import get_api_key
-from i18n import t
+# Security: Removed sys.path manipulation to prevent importing external packages.
+# This module is self-contained and does not import from sibling directories.
+# Removed imports from config and i18n to ensure isolation.
 
 # 数据目录
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')

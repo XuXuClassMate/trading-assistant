@@ -17,7 +17,8 @@ import math
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Security: Removed sys.path manipulation to prevent importing external packages.
+# This module is self-contained and does not import from sibling directories.
 
 
 class MultiFactorStrategy:

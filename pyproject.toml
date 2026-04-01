@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openclaw-trading-assistant"
-version = "1.3.1"
+version = "2.0.0"
 authors = [
-    {name = "XuXuClassMate", email = "mail@xuxuclassmate.com"}
+    {name = "XuXuClassMate"}
 ]
 description = "OpenClaw Trading Assistant - Technical Analysis & Trading Signals"
 readme = "README.md"
@@ -29,7 +29,6 @@ dependencies = [
     "numpy>=1.24.0",
     "requests>=2.31.0",
     "python-dateutil>=2.8.2",
-    "python-dotenv>=1.0.0",
 ]
 
 [project.optional-dependencies]

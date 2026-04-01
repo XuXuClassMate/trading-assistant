@@ -19,10 +19,9 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Tuple, Optional
 from collections import defaultdict
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from optimizer import api_cache
-from advanced_indicators import TechnicalIndicators
+# Security: Removed sys.path manipulation to prevent importing external packages.
+# This module is self-contained and does not import from sibling directories.
+# Removed imports from optimizer and advanced_indicators to ensure isolation.
 
 
 class BacktestEngine:

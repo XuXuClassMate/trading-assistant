@@ -30,8 +30,8 @@ import sys
 import os
 from datetime import datetime
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Security: Removed sys.path manipulation.
+# This CLI only imports from its own directory using standard Python imports.
 
 from config import Config
 from i18n import t
@@ -50,7 +50,7 @@ from advanced_indicators import TechnicalIndicators
 from backtest_engine_v2 import BacktestEngine
 from live_trading_interface import LiveTradingInterface
 
-VERSION = "1.5.0"
+VERSION = "2.0.0"
 
 
 def print_banner():

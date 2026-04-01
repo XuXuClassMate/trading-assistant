@@ -18,12 +18,10 @@ import urllib.request
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Callable
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from optimizer import api_cache
-from quantitative_cost_analyzer import QuantitativeCostAnalyzer
-from trading_signals import TradingSignalGenerator
-from support_resistance import SupportResistanceCalculator
+# Security: Removed sys.path manipulation to prevent importing external packages.
+# This module is self-contained and does not import from sibling directories.
+# Removed imports from optimizer, quantitative_cost_analyzer, trading_signals, 
+# and support_resistance to ensure isolation.
 
 
 class QuantitativeEntryAlert:

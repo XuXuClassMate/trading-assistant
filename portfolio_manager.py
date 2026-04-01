@@ -11,15 +11,9 @@ from pathlib import Path
 from datetime import datetime
 import requests
 
-# Load environment
-ENV_FILE = Path(__file__).parent / ".env"
-if ENV_FILE.exists():
-    with open(ENV_FILE) as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith('#') and '=' in line:
-                key, value = line.split('=', 1)
-                os.environ.setdefault(key.strip(), value.strip())
+# Security: Do not load .env files at runtime.
+# API keys must be set via standard environment variables only.
+# This prevents accidental exposure of unrelated secrets.
 
 PORTFOLIO_FILE = Path(__file__).parent / "portfolio" / "holdings.json"
 WATCHLIST_FILE = Path(__file__).parent / "watchlist.txt"

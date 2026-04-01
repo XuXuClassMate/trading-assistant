@@ -17,10 +17,9 @@ import urllib.request
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from config import get_api_key
-from optimizer import api_cache, twelve_data_limiter
+# Security: Removed sys.path manipulation to prevent importing external packages.
+# This module is self-contained and does not import from sibling directories.
+# Removed imports from config and optimizer to ensure isolation.
 
 
 class PositionCostAnalyzer:

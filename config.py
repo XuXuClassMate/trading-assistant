@@ -17,11 +17,10 @@ Configuration is loaded from:
 from pathlib import Path
 import json
 import os
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-# 从 .env 文件加载环境变量
-load_dotenv()
+# Security: Do not use load_dotenv() to prevent automatic .env file loading.
+# API keys must be set via standard environment variables only.
+# This prevents accidental exposure of unrelated secrets from parent directories.
 
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent

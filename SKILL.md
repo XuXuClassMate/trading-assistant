@@ -2,7 +2,7 @@
 name: trading-assistant
 description: Advanced trading analysis system with technical indicators, trading signals, and position management
 version: 2.0.0
-author: OpenClaw Community
+author: XuXuClassMate
 license: MIT
 category: Finance
 tags:
@@ -38,6 +38,9 @@ Advanced trading analysis system providing technical indicators, trading signals
 - ✅ Direct API calls to Twelve Data and Alpha Vantage only
 - ✅ All API keys loaded from standard environment variables only
 - ✅ No access to files outside the project directory
+- ✅ Removed all `sys.path.insert()` calls to prevent sibling directory imports
+- ✅ Removed runtime `.env` file loading (daily_report.py, news_sentiment_monitor.py)
+- ✅ Removed `load_dotenv()` from config.py to prevent automatic .env scanning
 
 ---
 
@@ -139,14 +142,17 @@ trading-assistant/
 ## 🔒 Security Model
 
 ### What This Skill Does:
-- ✅ Reads API keys from **standard environment variables** only
-- ✅ Reads `.env` file **in its own directory** only
-- ✅ Makes HTTP requests to **Twelve Data** and **Alpha Vantage** APIs
+- ✅ Reads API keys from **standard environment variables** only (`TWELVE_DATA_API_KEY`, `ALPHA_VANTAGE_API_KEY`)
+- ✅ Makes HTTP requests to **Twelve Data** and **Alpha Vantage** APIs only
 - ✅ Writes logs and reports to **its own directory** (`logs/`, `reports/`, `data/`)
-- ✅ Reads user-configured `watchlist.txt` and `config.json`
+- ✅ Reads user-configured `watchlist.txt` and `config.json` from its own directory
+- ✅ Uses direct API calls with no external package dependencies
 
 ### What This Skill Does NOT Do:
+- ❌ Does NOT read `.env` files at runtime (removed from daily_report.py, news_sentiment_monitor.py, config.py)
 - ❌ Does NOT read `.env` files from parent directories or sibling projects
+- ❌ Does NOT use `load_dotenv()` or any automatic .env loading
+- ❌ Does NOT use `sys.path.insert()` to import from sibling directories
 - ❌ Does NOT import or execute external packages (e.g., TradingAgents)
 - ❌ Does NOT access files outside its project directory
 - ❌ Does NOT send data to unauthorized endpoints
@@ -158,6 +164,12 @@ trading-assistant/
 - **DO NOT** provide brokerage credentials (IBKR, Robinhood, etc.)
 - **DO NOT** provide exchange API keys (Binance, Coinbase, etc.)
 - This tool is **read-only** - it analyzes data but does not trade
+
+### Code-Level Security Guarantees:
+1. **No sibling .env access**: config.py `get_api_keys()` only reads from `os.environ.get()`, never opens `../TradingAgents/.env` or any parent directory files
+2. **No sibling package imports**: All `sys.path.insert()` calls have been removed from all Python files
+3. **No runtime .env loading**: Removed all code that parses .env files into environment variables at runtime
+4. **Isolated imports**: Modules that previously imported from sibling files (optimizer, advanced_indicators, etc.) now have those imports removed
 
 ---
 
@@ -191,5 +203,5 @@ For detailed usage including daily reports, learning system, and automation setu
 
 ---
 
-**Last Updated**: 2026-03-28
+**Last Updated**: 2026-04-01
 **Security Audit**: v2.0.0 - Removed external dependencies, hardened API key handling
