@@ -6,7 +6,7 @@ Technical Analysis & Trading Signals
 技术分析与交易信号
 """
 
-__version__ = "1.1.0"
+__version__ = "1.0.3"
 __author__ = "OpenClaw Community"
 __email__ = "community@openclaw.ai"
 
