@@ -137,7 +137,7 @@ def get_api_keys():
     
     安全说明:
     - 仅从标准环境变量读取，不读取其他项目的.env 文件
-    - 支持的 API Key: TWELVE_DATA_API_KEY, ALPHA_VANTAGE_API_KEY
+    - 支持的 API Key: 标准环境变量中的 API 密钥
     - 不会访问父目录或其他项目的配置文件
     """
     keys = {}
